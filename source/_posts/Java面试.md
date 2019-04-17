@@ -6,7 +6,7 @@ categories: Java
 ---
 面试中高级的一些复习提纲, `持续更新`
 <!--more-->
-> [其他参考](https://github.com/nivelle/javaInterview)
+> [其他参考](http://nivelle.me/javaInterview/)
 ## 消息中间件
 - kafka
 - activemq
