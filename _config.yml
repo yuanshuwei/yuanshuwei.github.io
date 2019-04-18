@@ -85,3 +85,8 @@ deploy:
   
 since: 2019
 
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
