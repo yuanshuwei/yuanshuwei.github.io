@@ -38,46 +38,46 @@ public class Test {
 
 ```java
 public void set(T value) {
-        Thread t = Thread.currentThread();
-        ThreadLocalMap map = getMap(t);
-        if (map != null)
-            map.set(this, value);
-        else
-            createMap(t, value);
-    }
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
 
 ThreadLocalMap getMap(Thread t) {
-        return t.threadLocals;
-    }
+    return t.threadLocals;
+}
 
 // ThreadLocalMap.set()
 private void set(ThreadLocal<?> key, Object value) {
 
-            Entry[] tab = table;
-            int len = tab.length;
-            int i = key.threadLocalHashCode & (len-1);
+      Entry[] tab = table;
+      int len = tab.length;
+      int i = key.threadLocalHashCode & (len-1);
 
-            for (Entry e = tab[i];
-                 e != null;
-                 e = tab[i = nextIndex(i, len)]) {
-                ThreadLocal<?> k = e.get();
+      for (Entry e = tab[i];
+              e != null;
+              e = tab[i = nextIndex(i, len)]) {
+          ThreadLocal<?> k = e.get();
 
-                if (k == key) {
-                    e.value = value;
-                    return;
-                }
+          if (k == key) {
+              e.value = value;
+              return;
+          }
 
-                if (k == null) {
-                    replaceStaleEntry(key, value, i);
-                    return;
-                }
-            }
+          if (k == null) {
+              replaceStaleEntry(key, value, i);
+              return;
+          }
+      }
 
-            tab[i] = new Entry(key, value);
-            int sz = ++size;
-            if (!cleanSomeSlots(i, sz) && sz >= threshold)
-                rehash();
-        }
+      tab[i] = new Entry(key, value);
+      int sz = ++size;
+      if (!cleanSomeSlots(i, sz) && sz >= threshold)
+          rehash();
+  }
 ```
 通过上面代码发现，set的过程是:
 1. 首先获取当前线程Thread对象的ThreadLocalMap引用  `getMap(t)` 的 `t.threadLocals`
@@ -88,14 +88,14 @@ private void set(ThreadLocal<?> key, Object value) {
 ```java
 static class ThreadLocalMap {
         static class Entry extends WeakReference<ThreadLocal<?>> {
-            /** The value associated with this ThreadLocal. */
-            Object value;
+      /** The value associated with this ThreadLocal. */
+      Object value;
 
-            Entry(ThreadLocal<?> k, Object v) {
-                super(k);
-                value = v;
-            }
-        }
+      Entry(ThreadLocal<?> k, Object v) {
+          super(k);
+          value = v;
+      }
+  }
         ...
 }
 ```
@@ -106,18 +106,18 @@ static class ThreadLocalMap {
 下面再来看get()就不难了
 ```java
 public T get() {
-        Thread t = Thread.currentThread();
-        ThreadLocalMap map = getMap(t);
-        if (map != null) {
-            ThreadLocalMap.Entry e = map.getEntry(this);
-            if (e != null) {
-                @SuppressWarnings("unchecked")
-                T result = (T)e.value;
-                return result;
-            }
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings("unchecked")
+            T result = (T)e.value;
+            return result;
         }
-        return setInitialValue();
     }
+    return setInitialValue();
+}
 ```
 
 ### 四、内存泄露
@@ -138,8 +138,36 @@ static class Entry extends WeakReference<ThreadLocal<?>> {
 2. 但如果线程一直在运行，这个Entry的value一直不能被回收，强引用，会发生内存泄露;Entry是key的弱引用，不是实例对象value的弱引用，无法避免内存泄露
 3. 为了尽量避免泄露，在不需要的时候，执行 `remove()` 方法
 
+> 引用: 
 > [Java WeakReference的理解与使用](https://www.jianshu.com/p/282a00c9c583)
+> [理解Java的强引用、软引用、弱引用和虚引用](https://juejin.im/post/5b82c02df265da436152f5ad)
 
+**remove做了什么呢?**
+```java
+ /**
+  * Remove the entry for key.
+  */
+  private void remove(ThreadLocal<?> key) {
+      Entry[] tab = table;
+      int len = tab.length;
+      int i = key.threadLocalHashCode & (len-1);
+      for (Entry e = tab[i];
+          e != null;
+          e = tab[i = nextIndex(i, len)]) {
+          if (e.get() == key) {
+              e.clear();
+              expungeStaleEntry(i);
+              return;
+          }
+      }
+  }
+
+// Reference.clear()
+public void clear() {
+    this.referent = null;
+}
+```
+`clear()` 将key置null, 然后 `expungeStaleEntry(i)` 将Entry数组重新组合，遍历数组，key或value为空的对象置空
 ### 五、总结
 
 1. 存储当前线程可访问的数据，减少数据传输 `private static ThreadLocal<T> local`

@@ -1,6 +1,7 @@
 ---
 title: Hexo更新博客-原始文件与静态文件
 date: 2018-12-11 17:03:21
+tags: hexo
 categories: 博客搭建
 ---
 前言
