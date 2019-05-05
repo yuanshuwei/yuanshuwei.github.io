@@ -51,7 +51,7 @@ Options:
 
 ### 使用
 启动nginx  
-访问`http://127.0.0.1`即可，手机更换为电脑ip
+访问`http://127.0.0.1`即可，手机访问更换为电脑ip
 
 ### 参考
 nginx命令及教程推荐参考 [Nginx极简教程](https://github.com/dunwu/nginx-tutorial)
