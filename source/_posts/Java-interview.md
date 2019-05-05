@@ -14,6 +14,7 @@ categories: interview
 - 如何保证可靠性、顺序性
 - 设计消息队列的思路
 - ...
+- [RocketMQ 实战之快速入门](https://www.jianshu.com/p/824066d70da8)
 
 ## 源码
 - 集合
@@ -65,6 +66,8 @@ categories: interview
 ##### dubbo
 - 与springcloud的区别
 - 灰度、限流、降级
+
+##### service mesh 是什么
 
 ##### spring
 - MVC
