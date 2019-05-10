@@ -4,9 +4,12 @@ date: 2019-04-18 16:22:17
 tags: hexo
 categories: 博客搭建
 ---
-格式: {% post_link 文件名 链接文字 %}, 链接文字可省略
+格式如下, 链接文字可省略
+```
+{% post_link 文件名 链接文字 %}
+```
 
-如: hello.md
+如: 链接到文件: hello.md
 ```
 {% post_link hello %}
 ```
