@@ -48,6 +48,7 @@ categories: interview
 - B+ Tree 原理，与其它查找树的比较
 - 主从复制原理、作用、实现。
 - 水平切分与垂直切分。
+
 #### redis
 - 五种数据类型 [简书](https://www.jianshu.com/p/d645cebff386) 总结[我的](https://blog.csdn.net/ysw1132/article/details/88807203)
 - 分布式锁
@@ -91,3 +92,18 @@ categories: interview
 - [简历模板](https://github.com/CyC2018/Markdown-Resume)
 - [写简历](https://github.com/CyC2018/Backend-Interview-Guide/blob/master/doc/%E5%86%99%E5%A5%BD%E6%8A%80%E6%9C%AF%E7%AE%80%E5%8E%86.md)
 - [扫码登录](https://github.com/CyC2018/Backend-Interview-Guide/blob/master/doc/%E6%89%AB%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B.md)
+
+
+# 加油~~
+- 消息中间件(1)
+- 源码(1)
+- mysql(2)
+- redis(2)
+- jvm(1)
+- 设计模式(1)
+- dubbo(2)
+- spring(1)
+- 分布式(2)
+- 算法(1)
+- xxx(1)
+> 每天保证进度，9点撤，回去一题leetcode
