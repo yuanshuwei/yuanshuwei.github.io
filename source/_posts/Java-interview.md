@@ -2,19 +2,13 @@
 title: Java面试
 date: 2019-04-16 22:18:41
 tags: 面试
-categories: interview
+categories: 面试
 ---
 面试中高级的一些准备提纲, `持续更新`
 <!--more-->
 > [其他参考](http://nivelle.me/javaInterview/)
 ## 消息中间件 
-[参考](https://github.com/doocs/advanced-java)
-- 为什么用消息队列
-- kafka、activemq、rabbitmq、rocketmq优缺点，如何选型
-- 如何保证可靠性、顺序性
-- 设计消息队列的思路
-- ...
-- [RocketMQ 实战之快速入门](https://www.jianshu.com/p/824066d70da8)
+{% post_link message-middleware %}
 
 ## 源码
 - 集合
