@@ -33,6 +33,7 @@ categories: Java
 		- `LinkedHashSet`：
 		基于LinkedHashMap实现
 >推荐: [ArrayList 源码学习](https://github.com/Snailclimb/Java-Guide/blob/master/Java%E7%9B%B8%E5%85%B3/ArrayList.md), [HashMap源码学习](https://github.com/Snailclimb/JavaGuide/blob/master/Java%E7%9B%B8%E5%85%B3/HashMap.md)
+
 #### HashMap分析 
 - 允许键值为null；  
 - 非线程安全；如果需要满足线程安全，可以用 Collections.synchronizedMap()方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap。  

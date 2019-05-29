@@ -47,6 +47,7 @@ categories: 面试
 - 五种数据类型 [简书](https://www.jianshu.com/p/d645cebff386) 总结[我的](https://blog.csdn.net/ysw1132/article/details/88807203)
 - 分布式锁
 - 与 Memchached 的比较。
+- redis(socket 网络编程)
 
 ## Jvm
 {% post_link jvm %} //todo 完善
@@ -96,6 +97,9 @@ categories: 面试
 ## 算法
 - 几大排序：描述和代码实现
 - 斐波那契
+  
+## 刷题
+- 剑指offer
 
 ## 其他
 - [看看知识和岗位](https://github.com/CyC2018/)
@@ -116,4 +120,5 @@ categories: 面试
 - 分布式(2)
 - 算法(1)
 - xxx(1)
-> 每天保证进度，9点撤，回去一题leetcode
+
+> 每天保证进度，9点撤，回去刷一题
