@@ -39,15 +39,18 @@ categories: 面试
 - 索引 
 	- mysql中a、b的联合索引。 对于单个a或b字段有效吗？
 - 引擎
-- B+ Tree 原理，与其它查找树的比较
+- 索引数据结构
+- B+ Tree 原理，与其它查找树的比较。 B+ Tree 和 B Tree 的区别？
 - 主从复制原理、作用、实现。
 - 水平切分与垂直切分。
+- 分库分表，分库分表中间件？
 
 #### redis
 - 五种数据类型 [简书](https://www.jianshu.com/p/d645cebff386) 总结[我的](https://blog.csdn.net/ysw1132/article/details/88807203)
 - 分布式锁
 - 与 Memchached 的比较。
 - redis(socket 网络编程)
+- [github总结](https://github.com/doocs/advanced-java)
 
 ## Jvm
 {% post_link jvm %} //todo 完善
@@ -93,13 +96,14 @@ categories: 面试
 - 分布式事务
 - 分布式锁
 - zookeeper
+- 一致性hash
 
 ## 算法
 - 几大排序：描述和代码实现
 - 斐波那契
   
 ## 刷题
-- 剑指offer
+- 剑指offer {[参考](https://github.com/CyC2018/CS-Notes)}
 
 ## 其他
 - [看看知识和岗位](https://github.com/CyC2018/)
