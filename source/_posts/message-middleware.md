@@ -25,7 +25,7 @@ categories: 面试
 - Kafka,
   - 架构认识：由多个Broker组成，创建一个topic可以划分为多个partition，每个partition存在不同的broker里。就是说每个topic的数据存在不同的机器中，3个partition就是3个机器中
   - 0.8以前，如果一个实例挂，就相当于topic丢了一部分数据。之后加入了replica副本，partition会存在副本；自动选举leader和follower；
-  - 读写全部从leader节点；写数据的时候，leader存本地磁盘，follower主动拉leader拉，全部follower拉完会发ack给leader，再返回给生产者；读数据时，只有所有follower都返回ack同步成功的才会被消费
+  - 读写全部从leader节点；写数据的时候，leader存本地磁盘，follower主动去leader拉，全部follower拉完会发ack给leader，再返回给生产者；读数据时，只有所有follower都返回ack同步成功的才会被消费
 
 ### 四、 消息队列的重复消费、幂等性？
 - 都可能出现重复消费，这是开发来保证的不是MQ
@@ -54,6 +54,10 @@ categories: 面试
 - 就是消费端出现了问题
 
 ### 八、设计消息队列的思路
-[这里](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/mq-design.md)
+- 可伸缩，动态扩容： 参考kafka，每个机器存一部分数据，如果资源不够了，给topic增加partition，然后做数据迁移，增加机器，就可以存放更多数据
+- 数据持久化： 顺序写，这样就没有磁盘随机读写的寻址开销，磁盘顺序读写的性能是很高的，这就是 kafka 的思路。
+- 可用性： 参考之前的，多副本，leader&follower->broker, 挂了就重新选举
+- 数据零丢失: 之前的方案
+- [这里](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/mq-design.md) 
 
-[RocketMQ 实战之快速入门](https://www.jianshu.com/p/824066d70da8)
+> [RocketMQ 实战之快速入门](https://www.jianshu.com/p/824066d70da8)

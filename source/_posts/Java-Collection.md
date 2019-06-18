@@ -9,7 +9,7 @@ categories: Java
 - Collection
 	- **List**
 		- `ArrayList`: 
-		Object数组实现，每次扩容50%；非线程安全；
+		Object数组实现，每次扩容为原来的1.5倍；非线程安全；
 		- `Vector` :  
 		Object数组实现，相对ArrayList，用synchronized关键字加锁，实现线程安全；
 		- `LinkedList`: 
@@ -32,8 +32,8 @@ categories: Java
 		有序，唯一；红黑树
 		- `LinkedHashSet`：
 		基于LinkedHashMap实现
->推荐: [ArrayList 源码学习](https://github.com/Snailclimb/Java-Guide/blob/master/Java%E7%9B%B8%E5%85%B3/ArrayList.md), [HashMap源码学习](https://github.com/Snailclimb/JavaGuide/blob/master/Java%E7%9B%B8%E5%85%B3/HashMap.md)
 
+>推荐: [源码学习](https://github.com/Snailclimb/JavaGuide)
 #### HashMap分析 
 - 允许键值为null；  
 - 非线程安全；如果需要满足线程安全，可以用 Collections.synchronizedMap()方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap。  

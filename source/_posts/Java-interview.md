@@ -6,13 +6,19 @@ categories: 面试
 ---
 面试中高级的一些准备提纲, `持续更新`
 <!--more-->
-> [其他参考](http://nivelle.me/javaInterview/)
+> [同学整理](http://nivelle.me/javaInterview/)
+> {% post_link interview-experience-2019   %}
+
+**整体参考**:
+- [高并发、分布式等，适合面试](https://github.com/doocs/advanced-java)
+- [基础知识+算法题解、源码分析](https://github.com/Snailclimb/JavaGuide)
+
 ## 消息中间件 
 {% post_link message-middleware %}
 
 ## 源码
 - 集合
-  - HashMap底层
+  - [HashMap底层](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/HashMap.md)
   - {% post_link Java-Collection %}
 - 并发(synchronized ThreadLocal...)、线程池
 	- [synchronized](https://juejin.im/post/5b4eec7df265da0fa00a118f)
@@ -99,7 +105,7 @@ categories: 面试
 - 一致性hash
 
 ## 算法
-- 几大排序：描述和代码实现
+- 几大排序：描述和代码实现 [参考](https://github.com/ZhongFuCheng3y/3y/blob/master/src/sort.md)
 - 斐波那契
   
 ## 刷题
@@ -124,5 +130,3 @@ categories: 面试
 - 分布式(2)
 - 算法(1)
 - xxx(1)
-
-> 每天保证进度，9点撤，回去刷一题
