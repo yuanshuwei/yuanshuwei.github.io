@@ -38,7 +38,11 @@ categories: 面试
     - 偏向锁:加锁偏向经常分配到的那个线程
     - ReentrantLock（公平锁\非公平锁两种实现)
 	- 线程池分类，关键参数设置
-- 并发的几种实现方式
+  	- ExecutorService的execute和submit:submit有返回值，而execute没有; submit用的Future,call的方式得到返回值 [链接](http://www.jcodecraeer.com/a/chengxusheji/java/2014/0903/1672.html)
+- 并发的几种实现方式 [111](https://www.jianshu.com/p/bdac4e8a6839)
+  - 任务类实现Runnable接口，在方法Run()里定义任务。
+  - 任务类继承Thread，重写run()方法。
+  - 实现接口Callable并在call()方法里得到线程执行结果。
 
 ## 数据库
 #### MySql
