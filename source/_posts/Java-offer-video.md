@@ -170,3 +170,44 @@ set k v [EX second] [PX milliseconds] [NX|XX]
 - 然后出现了一致性hash算法
 对2的32次方取模,将哈希值空间组织成虚拟的圆环。　宕机和增加节点之后影响逆时针的第一个节点的数据。；　　
 当节点数很少时，会出现数据倾斜问题，可以把一个节点设置为分布分散在环上的多个节点，使最终的数据分布尽量均匀
+
+
+### Shell
+
+- 文件检索: find
+```
+find ~ -name "build.sh"　#　精确查找
+
+
+find ~ -name "build.*"　# 通配符
+
+find ~ -iname "build.sh"  # 忽略大小写
+
+man find
+```
+
+- 文件内容检索: grep
+
+  - grep [options] pattern file
+
+    ```
+    grep "moo" target* # 查询包含内容"moo"并且文件名以target开头的文件和目标字段串所在的行的内容 
+    ```
+  - `grep "ss" ss.log`  查找包含你指定内容的行，并打印你呢
+  - `grep -o` 只显示想要的数据部分
+  - `grep -v` 过滤掉目标数据
+- 管道操作符 |  输出作为后面的输入    
+  ```
+  find ~ | grep "target"
+  ```
+- 文件呢内容的统计: awk
+```
+awk [options] 'cmd' file ＃ 特别适合表格类数据，统计等
+awk '{print $1,$4}' netstat.txt #打印第一行和第四行, awk默认以空格分割
+```
+- 批量替换文本内容: sed
+```
+sed -i 's/^Str/String/' xx.java #Str开头的Str替换为String
+sed -i '/\.$/\;/' xx.java #.结尾的替换为;
+sed -i '/Jack/me/g' xx.java ＃Jack替换成me，g是整行替换
+```
