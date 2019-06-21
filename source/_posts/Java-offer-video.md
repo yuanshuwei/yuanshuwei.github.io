@@ -6,7 +6,7 @@ categories: 面试
 ---
 剑指面试视频，笔记
 <!--more-->
-Redis
+一、Redis
 ---
 
 #### 与Memcache区别
@@ -172,7 +172,8 @@ set k v [EX second] [PX milliseconds] [NX|XX]
 当节点数很少时，会出现数据倾斜问题，可以把一个节点设置为分布分散在环上的多个节点，使最终的数据分布尽量均匀
 
 
-### Shell
+二、Shell
+---
 
 - 文件检索: find
 ```
@@ -211,3 +212,83 @@ sed -i 's/^Str/String/' xx.java #Str开头的Str替换为String
 sed -i '/\.$/\;/' xx.java #.结尾的替换为;
 sed -i '/Jack/me/g' xx.java ＃Jack替换成me，g是整行替换
 ```
+
+三、类加载
+---
+
+### 自定义类加载
+```
+public class MyClassLoader extends ClassLoader {
+
+    private String path;
+    private String name;
+
+    public MyClassLoader(String path, String name) {
+        this.path = path;
+        this.name = name;
+    }
+
+    @Override
+    public Class findClass(String name) {
+
+        byte[] b = loadClassData(name);
+        return defineClass(name, b, 0, b.length);
+    }
+
+    // 加载类文件二进制字节码
+    private byte[] loadClassData(String name) {
+        name = path + name + ".class";
+        InputStream in = null;
+        ByteArrayOutputStream out = null;
+        try {
+            in = new FileInputStream(new File(name));
+            out = new ByteArrayOutputStream();
+            int i = 0;
+            while ((i = in.read()) != -1) {
+                out.write(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+                in.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return out.toByteArray();
+    }
+}
+
+public class ClassLoaderCheck {
+
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+        MyClassLoader myClassLoader = new MyClassLoader("/Users/yuan/Desktop/", "myClassLoader");
+        Class clazz = myClassLoader.findClass("Bot");
+        clazz.newInstance();
+    }
+}
+```
+
+#### 类加载器分类:
+- BootStrapClassLoader: C++编写，加载核心库java
+- ExtClassLoader: Java编写，加载扩展库javax.*
+- AppClassLoader: Java编写，加载程序所在目录
+- 自定义ClassLoader: Java编写，定制化加载
+
+
+#### 双亲委派机制
+自底向上查找，自上向下加载;代码的loadclass中，加载类时，循环判断父加载器不为空就先尝试加载父加载器，直到加载C++编写的BootStrapClassLoader。`CustomerClassLoader->AppClassLoader->ExtClassLoader->BooStrapClassLoader`
+[参考](https://www.jianshu.com/p/353c26c744df)
+
+#### 为什么用双亲委派模型?
+每个类加载器是一个类加载空间，隔开的各个类的加载优先级；
+- 避免多份同样的字节码的加载，逐层去查找
+
+#### loadClass, forName的区别
+- 加载class文件字节码，生成Class对象
+- 校验(正确和安全)、准备(为类变量分配空间并设置变量初始值)、解析(JVM常量池的符号引用转为直接引用)
+- 初始化(执行类变量赋值和静态代码块)
+
+forName是加载类并已完成了初始化(比如执行静态代码块); loadClass没有链接的
