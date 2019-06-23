@@ -178,22 +178,27 @@ Java虚拟机内存结构
 - 分代收集算法：根据垃圾需要收集的多少决定用复制还是标记-整理算法
 
 #### 常见回收器(Java虚拟机没有规范，下面的不同收集器适用不同的场景)
-- Serial(新生代)
+- Serial(-XX:+UseSerialGC,新生代, 复制算法)
     - 最基本，发展最悠久的
     - 单线程(多线程任务执行，垃圾收集时全部线程暂停等待单线程的收集，收集完继续多个线程的执行)
     - 桌面应用
-- ParNew(新生代)
+- ParNew(-XX:+UseParNewGC, 新生代, 复制算法)
     - 多线程
-- Parallel Scavenge
+- Parallel Scavenge(-XX:+UserParellelGC)
     - 复制算法(新生代收集器)
     - 多线程收集器
     - 吞吐量:(执行用户代码的时间) / 总时间
     - 达到可控制的吞吐量
     -  -XX：MaxGCPauseMillis 垃圾收集器最大停顿时间
     -  -XX:GCTimeRatio 吞吐量大小， 取值(0, 100)
+- Serial Old(-XX:+UseSerialOldGC, 标记-整理)
+  - 老年代收集器, Serial的老年代版本
+- Parallel Old
+  - 老年代
 - CMS(Concurrent Mark Sweep)
     - 针对老年代
-- G1
+    - 停顿时间很短
+- G1(-XX:+UseG1GC, 复制+标记+整理)
     - 面向服务端
     - 综合前面的优势
     - 并行和并发
