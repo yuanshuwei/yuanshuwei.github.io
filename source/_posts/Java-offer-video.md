@@ -279,7 +279,8 @@ public class ClassLoaderCheck {
 
 
 #### 双亲委派机制
-自底向上查找，自上向下加载;代码的loadclass中，加载类时，循环判断父加载器不为空就先尝试加载父加载器，直到加载C++编写的BootStrapClassLoader。`CustomerClassLoader->AppClassLoader->ExtClassLoader->BooStrapClassLoader`
+自底向上查找，自上向下加载;代码的loadclass中，加载类时，循环判断父加载器不为空就先尝试加载父加载器，直到加载C++编写的BootStrapClassLoader。 `CustomClassLoader->AppClassLoader->ExtClassLoader->BooStrapClassLoader`
+类本身+类加载器唯一确定在jvm  的唯一性。所以自定义加载同类名的类，无法加载
 [参考](https://www.jianshu.com/p/353c26c744df)
 
 #### 为什么用双亲委派模型?
