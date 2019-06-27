@@ -47,10 +47,10 @@ categories: 面试
   比如coresize 1 maxsize 5　有界队列: 
   先判断当前空闲线程数和coresize的关系，如果超过coresize扔队列，队列满，判断maxsize满没满，没满创建thread,如果满了执行拒绝策略逻辑(jdk自带４种拒绝策略，也可以重写，只要实现RejectExecutionHandler类)
   - 阻塞队列
-    - 1. ArrayBlockingQueue：是一个基于数组结构的有界阻塞队列，此队列按 FIFO（先进先出）原则对元素进行排序。
-    - 2. LinkedBlockingQueue：一个基于链表结构的阻塞队列，此队列按FIFO （先进先出） 排序元素，吞吐量通常要高于ArrayBlockingQueue。静态工厂方法Executors.newFixedThreadPool()使用了这个队列。
-    - 3. SynchronousQueue：一个不存储元素的阻塞队列。每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于阻塞状态，吞吐量通常要高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列。
-    - 4. PriorityBlockingQueue：一个具有优先级得无限阻塞队列。
+    1. ArrayBlockingQueue：是一个基于数组结构的有界阻塞队列，此队列按 FIFO（先进先出）原则对元素进行排序。
+    2. LinkedBlockingQueue：一个基于链表结构的阻塞队列，此队列按FIFO （先进先出） 排序元素，吞吐量通常要高于ArrayBlockingQueue。静态工厂方法Executors.newFixedThreadPool()使用了这个队列。
+    3. SynchronousQueue：一个不存储元素的阻塞队列。每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于阻塞状态，吞吐量通常要高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列。
+    4. PriorityBlockingQueue：一个具有优先级得无限阻塞队列。
   - 线程池饱和时，线程数大于maxsize,的拒绝策略
     - hreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。
     - ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。
@@ -59,17 +59,15 @@ categories: 面试
 
 ## 数据库
 #### MySql
-- 索引 
-	- mysql中a、b的联合索引。 对于单个a或b字段有效吗？
-- 引擎
-- 索引数据结构
-- B+ Tree 原理，与其它查找树的比较。 B+ Tree 和 B Tree 的区别？
+- {% post_link mysql-note %}
 - 主从复制原理、作用、实现。
 - 水平切分与垂直切分。
 - 分库分表，分库分表中间件？
 
 #### redis
+
 > [github参考](https://github.com/doocs/advanced-java)
+
 - 作用:高性能，高并发；　雪崩: 宕机，事前：主从复制＋哨兵，redis　cluster维持高可用，事中，限流，降级，增加本地缓存，事后: redis持久化，快速恢复数据
 - redis线程模型:  它采用 IO 多路复用机制同时监听多个 socket，将产生事件的 socket 压入内存队列中，事件分派器根据 socket 上的事件类型来选择对应的事件处理器进行处理。多个socket,IO多路复用，文件时间分派器，事件处理器
 - redis效率高: 纯内存操作,IO多路复用的非阻塞IO,Ｃ语言实现,单线程避免上下文切换问题,单线程处理高并发，多核也可启动多实例
