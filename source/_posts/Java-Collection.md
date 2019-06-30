@@ -48,3 +48,6 @@ hash%length==hash&(length-1)的前提是length是2的n次方；
 例如长度为9时候，3&(9-1)=0  2&(9-1)=0 ，都在0上，碰撞了；
 例如长度为8时候，3&(8-1)=3  2&(8-1)=2 ，不同位置上，不碰撞；
 ```
+##### 为什么8节点变为红黑树？
+- [n/2与log(n)](https://blog.csdn.net/xingfei_work/article/details/79637878)
+- [概率统计得到](https://www.javazhiyin.com/34651.html)

@@ -33,6 +33,8 @@ public class Test {
     }
 }
 ```
+> 整体结构: Thread下存ThreadLocalMap->Entry数组->数组的下标通过key(当前ThreadLocal对象)的hash函数确定，Entry对象存在key和value属性
+
 ### 三、源码分析
 > 来自: JDK1.8
 
