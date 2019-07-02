@@ -4,7 +4,8 @@ date: 2019-06-30 22:02:10
 tags:
 categories:
 ---
-<!-- more -->
+并发笔记
+<!--more-->
 - 线程的状态: 新建、可运行(就绪状态，start后马上进入就绪状态、)、运行、阻塞(比如sleep方法后)、死亡
 - [synchronized](https://juejin.im/post/5b4eec7df265da0fa00a118f)
 		- 底层是通过monitor(监视器锁)对象完成的，通过软件在jvm实现
