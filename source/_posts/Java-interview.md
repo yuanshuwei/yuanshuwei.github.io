@@ -105,6 +105,8 @@ categories: 面试
 ## 算法
 - 几大排序：描述和代码实现 [参考](https://github.com/ZhongFuCheng3y/3y/blob/master/src/sort.md)
 - [快排实现](https://juejin.im/post/5b55660ee51d4519202e2003): 分治
+- [排序稳定性分析](https://www.jianshu.com/p/9e855ba2b079)
+- [二分查找](https://juejin.im/post/5b15ff73e51d4506b113d956)
 - 斐波那契
 - [B树、B+树与红黑树](https://www.jianshu.com/p/86a1fd2d7406)
   
