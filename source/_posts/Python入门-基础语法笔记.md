@@ -4,7 +4,7 @@ date: 2018-01-12 16:38:17
 tags: python
 categories: Python
 ---
-python基础语法，比较详细
+python基础语法，比较详细, 查阅和初学
 <!--more-->
 
 ### 1.vi技巧：  
@@ -26,6 +26,7 @@ print("hello world")
 name = input("请输入名字：") 
 ```
 ### 5.输出  
+
 ```python
 print("name is %s"%name)   
 print("name:%s, age:%d"%(name,age))  
@@ -43,7 +44,8 @@ table = {'Google': 1, 'Runoob': 2, 'Taobao': 3}
 print('Runoob: {Runoob:d}; Google: {Google:d}; Taobao: {Taobao:d}'.format(**table))
 #Runoob: 2; Google: 1; Taobao: 3
 ```
-### 6.类型转换  
+### 6.类型转换 
+
 ```python
 a = int("3") 
 ```
@@ -53,6 +55,7 @@ a = int("3")
 - python2 中支持 <> 是不等于的意思，python3不支持，应该 != 表示  
 
 ### 8.运算符 
+
 ```python
 "a" * 5 = "aaaaa"
 2 ** 3 = 8
@@ -64,6 +67,7 @@ a = int("3")
 ### 9.逻辑运算符  
 and , or  
 ### 10.流程
+
 ```python
 if 1 > 2:
     print("1")
@@ -81,9 +85,11 @@ for i int str:
  
 注: i++,++i在python中不允许使用。    
 ```
+
 ### 11.字符串(不可变)  
 
 - 格式化
+
 ```python
 >>>'a: %s, b:%s' %s ('a', 'b')
 'a: a, b: b'
@@ -108,20 +114,24 @@ for i int str:
 'the number is 2.000000'
 ```
 - 类型转换：
+
 ```python
 int("100"), str(100)
 ```
 - 长度：
+
 ```python
 len(str)
 ```
 - 字符串连接:
+
 ```python
 a = b + c  #或者
 a = "===%s==="%(b+c)  #或者
 a = "==={}===".format(b+c)
 ```
 - 切片：
+
 ```python
 str = "dasfaf"
 str[2:4] #(取得2到3的),  
@@ -129,6 +139,7 @@ str[2:]  #(到最后),
 str[2:-1:2] #(步长2，隔一个取一个)
 ```
 - 逆序:
+
 ```python
 str = "abcdefABCDEF"  
 str[0:]  # out:"abcdefABCDEF"  
@@ -139,6 +150,7 @@ str[-1::-1], str[::-1]  # out:"FEDCBAfedcba"
 ```
 
 - 常见操作
+
 ```python
 find: str.find("abc") # 从左向右有返回第一个匹配字符串的起始下标，没有返回-1。rfind():从右向左。  
 str.index("abc") #找到返回起始下标，没有抛出异常。 存在rindex().  
@@ -165,7 +177,9 @@ str.strip() #删除两端空格.
 >>> 'hello world'.center(20, '*')
 '****hello world*****'
 ```
+
 ### 12.列表  (类似数组，可变，针对自身的变化)  
+
 ```python
 ["zhangsan","lisi"]
 #定义
@@ -196,6 +210,7 @@ len(names) #元素个数
 ''.join(list) # 列表转字符串
 names.sort() #排序，改变原结构; names.sort(reverse=True) 反向顺序
 ```
+
 运算符
 |表达式|结果|描述|
 |-|-|-|
@@ -214,6 +229,7 @@ params = {"server":"mpilgrim", "database":"master", "uid":"sa", "pwd":"secret"}
 ```
 
 ### 13.字典（可变）  
+
 ```python
 a = {"name":"yy", "age": 12}
 
@@ -226,7 +242,9 @@ a["name"] = "zz" #相同key的值覆盖。
 #查：
 a["name"], a.get("name")
 ```
+
 for-else
+
 ```python
 #for中没有break,则else一定会执行
 for temp in strs:  
@@ -234,8 +252,10 @@ for temp in strs:
 else:  
    print("")
 ```
+
 const 修改变量为不可变。  
 字典常见操作
+
 ```python
 len(a) #键值对的个数
 
@@ -249,9 +269,11 @@ a.values() #返回value的列表
 ### 14.元组(类似列表，不可变)  
 
 列表可以增删改，元组不能改
+
 ```python
 tup1 = (); #空元组
 ```
+
 ```python
 >>> tup1 = (50)
 >>> type(tup1)     # 不加逗号，类型为整型
@@ -261,7 +283,9 @@ tup1 = (); #空元组
 >>> type(tup1)     # 加上逗号，类型为元组
 <class 'tuple'>
 ```
+
 访问：
+
 ```python
 tup1 = ('Google', 'Runoob', 1997, 2000)
 tup2 = (1, 2, 3, 4, 5, 6, 7 )
@@ -269,7 +293,9 @@ tup2 = (1, 2, 3, 4, 5, 6, 7 )
 print ("tup1[0]: ", tup1[0]) # Google
 print ("tup2[1:5]: ", tup2[1:5]) #(2, 3, 4, 5)
 ```
+
 修改：
+
 ```python
 tup1 = (12, 34.56);
 tup2 = ('abc', 'xyz')
@@ -281,13 +307,16 @@ tup2 = ('abc', 'xyz')
 tup3 = tup1 + tup2;
 print (tup3) #(12, 34.56, 'abc', 'xyz')
 ```
+
 删除
+
 ```python
 tup = ('Google', 'Runoob', 1997, 2000)
 
 print (tup)
 del tup;
 ```
+
 运算符
 |表达式|结果|描述|
 |-|-|-|
@@ -297,6 +326,7 @@ del tup;
 |3 in (1, 2, 3)|True|元素是否存在|
 |for x in (1, 2, 3): print x,|1 2 3|迭代|
 类似拆包
+
 ```python
 a = (11,12)
 b = a
@@ -317,7 +347,9 @@ for temp in info.items():
 for a,b in info.items():
     print("key=%s,value=%s"%(a,b))
 ```
+
 **遍历技巧**：
+
 ```python
 #在字典中遍历时，关键字和对应的值可以使用 items() 方法同时解读出来
 knights = {'gallahad': 'the pure', 'robin': 'the brave'}
@@ -365,7 +397,9 @@ banana
 orange
 pear
 ```
+
 ### 15.函数  
+
 ```python
 def abc():
     print("")
@@ -373,6 +407,7 @@ def abc():
 abc()
 #注意： 函数的定义需要在函数的调用之前，否则报错。
 ```
+
 可更改与不可更改对象：  
 在python中，strings,tuples和numbers是不可更改对象，list.dict等则是可更改对象。
 - 不可变类型：变量赋值 a=5后在赋值a=10,生成了新的对象，原对象丢弃。  
@@ -381,6 +416,7 @@ abc()
 python 函数的参数传递：  
 - 不可变类型:类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身
 - 可变类型：类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响  
+
 ```python
 #默认函数参数
 
@@ -443,6 +479,7 @@ outer()
 #100
 #100
 ```
+
 ### 16.迭代器和生成器  
 字符串，列表和元组对象都可用于创建迭代器。  
 ```python
@@ -488,6 +525,7 @@ while True:
 ### 17.模块  
 为此 Python 提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被称为模块。  
 - import语句，想使用 Python 源文件，只需在另一个源文件里执行 import 语句。
+
 ```python
 #!/usr/bin/python3
 # Filename: support.py
@@ -506,15 +544,19 @@ import support #文件名
 # 现在可以调用模块里包含的函数了
 support.print_func("Runoob")
 ```
+
 - from...import语句,从模块中导入一个指定的部分到当前命名空间中。
+
 ```python
 #导入模块 fibo 的 fib 函数
 from fibo import fib, fib2
 >>> fib(500)
 ```
+
 - From...import* 语句，把一个模块的所有内容全都导入到当前的命名空间。
 - 模块除了方法定义，还可以包括可执行的代码。这些代码一般用来初始化这个模块。这些代码只有在第一次被导入时才会被执行。
 - _name_属性,一个模块被另一个程序第一次引入时，其主程序将运行。如果我们想在模块被引入时，模块中的某一程序块不执行,可以用__name__属性。
+
 ```python
 #!/usr/bin/python3
 # Filename: using_name.py
@@ -524,12 +566,14 @@ if __name__ == '__main__':
 else:
    print('我来自另一模块')
 ```
+
 - Python 会根据 sys.path 中的目录来寻找这个包中包含的子目录。
 - 目录只有包含一个叫做 __init__.py 的文件才会被认作是一个包，主要是为了避免一些滥俗的名字（比如叫做 string）不小心的影响搜索路径中的有效模块。
 - 推荐：from Package import specific_submodule
 
 ### 18.文件  
 open()方法返回文件，第二个参数为文件打开方式。默认只读r。w写，a追加...
+
 ```python
 f = open("/tmp/test.txt","w")
 
@@ -537,6 +581,7 @@ f.write("人生苦短，我用python！")
 
 f.close()
 ```
+
 - f.read(size) 读取文件内容，size为空或负数则全部返回。
 - f.readline() f.readline() 会从文件中读取单独的一行。换行符为 '\n'。f.readline() 如果返回一个空字符串, 说明已经已经读取到最后一行。
 - f.readlines() 读取文件所有行，并以列表返回。
@@ -544,6 +589,7 @@ f.close()
 
 ### 19.类  
 - 类方法
+
 ```python
 class MyClass:
     i = 12345
@@ -555,7 +601,9 @@ x = MyClass()
 print("MyClass 类的属性 i 为：", x.i)
 print("MyClass 类的方法 f 输出为：", x.f())
 ```
+
 - 构造方法
+
 ```python
 class Complex:
     #构造方法
@@ -565,6 +613,7 @@ class Complex:
 x = Complex(3.0, -4.5)
 print(x.r, x.i)   # 输出结果：3.0 -4.5
 ```
+
 ```python
 #类定义
 class people:
@@ -585,7 +634,9 @@ class people:
 p = people('runoob',10,30)
 p.speak()
 ```
+
 - 继承
+
 ```python
 #类定义
 class people:
@@ -633,9 +684,11 @@ class sample(speaker,student):
 test = sample("Tim",25,80,4,"Python")
 test.speak()   #方法名同，默认调用的是在括号中排前地父类的方法
 ```
+
 ### 20.正则表达式  
 - re.match与re.search的区别  
 re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。
+
 ```python
 import re
 
@@ -656,7 +709,9 @@ else:
 #No match!!
 #search --> matchObj.group() :  dogs
 ```
+
 - 检索和替换
+
 ```python
 import re
 
