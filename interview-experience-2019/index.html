@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="面经整理～～">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T10:15:09.345Z">
+<meta property="og:updated_time" content="2019-07-15T10:29:55.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019面经">
 <meta name="twitter:description" content="面经整理～～">
@@ -359,7 +359,7 @@
 <li>微服务<ul>
 <li>谈谈你理解的微服务</li>
 <li>服务的划分依据</li>
-<li>一次dubbo的调用过程</li>
+<li>一次dubbo的完整调用过程</li>
 </ul>
 </li>
 <li>mysql<ul>
@@ -369,7 +369,7 @@
 <li>最左原则</li>
 <li>说说B+树和B树</li>
 <li>讲讲幻读和不可重复读</li>
-<li>讲讲数据库的乐观锁和xx锁</li>
+<li>讲讲数据库的乐观锁和悲观锁</li>
 </ul>
 </li>
 <li>redis<ul>
@@ -386,13 +386,13 @@
 </ul>
 </li>
 <li>HashMap<ul>
-<li>HashMap结构，为什么是8转为红黑树</li>
+<li>HashMap结构，为什么是数量是8转为红黑树</li>
 <li>说说红黑树</li>
 <li>怎么保证HashMap线程安全</li>
 </ul>
 </li>
 <li>线程<ul>
-<li>线程生命周期，什么时候发生线程状态变为死掉</li>
+<li>线程生命周期，什么时候发生线程状态变为死亡</li>
 <li>讲讲CAS和AQS</li>
 <li>ThreadLocal结构，与线程池一起使用会有什么问题吗？</li>
 </ul>
@@ -406,7 +406,6 @@
 <li>快排</li>
 </ul>
 </li>
-<li>爬虫难点</li>
 </ul>
 <h2 id="瓜子"><a href="#瓜子" class="headerlink" title="瓜子"></a>瓜子</h2><h4 id="第一轮"><a href="#第一轮" class="headerlink" title="第一轮"></a>第一轮</h4><ul>
 <li>coding:<ul>
@@ -414,7 +413,7 @@
 <li>无序数组，取出top N的N个元素</li>
 </ul>
 </li>
-<li>ConcurrentHashMap JDK8的优化</li>
+<li>ConcurrentHashMap 在JDK8的优化</li>
 <li>jvm内存结构</li>
 </ul>
 <h4 id="第二轮"><a href="#第二轮" class="headerlink" title="第二轮"></a>第二轮</h4><ul>
@@ -448,42 +447,43 @@
 </li>
 </ul>
 <h2 id="洋钱罐"><a href="#洋钱罐" class="headerlink" title="洋钱罐"></a>洋钱罐</h2><ul>
-<li>简单的sql(join)</li>
+<li>简单的sql手写(join)</li>
 <li>mysql事务隔离级别</li>
 <li>redis怎么用的<h4 id="算法手写"><a href="#算法手写" class="headerlink" title="算法手写"></a>算法手写</h4>二叉树根节点到叶子的数据和的最大值(广度优先,没一级存当前与上面的和，叶子节点就是总和)</li>
 </ul>
 <h2 id="vipkid"><a href="#vipkid" class="headerlink" title="vipkid"></a>vipkid</h2><ul>
 <li>项目遇到的难点</li>
 <li>redis cluster写热点key问题</li>
-<li>一个线程池，3个线程执行完成就继续执行下去</li>
+<li>一个线程池，3个线程执行完成就继续执行下去，写代码(CountdownLatch)</li>
 <li>算法手写<ul>
 <li>字符串反转</li>
 <li>和为n的连续正整数序列</li>
 <li>单链表反转</li>
 </ul>
 </li>
+<li>等等</li>
 </ul>
 <h2 id="转转"><a href="#转转" class="headerlink" title="转转"></a>转转</h2><p>zk分布式锁的临时节点如何释放的<br>select for update是什么锁</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select from where id = &apos;&apos;</span><br><span class="line">select from where name = &apos;&apos;</span><br></pre></td></tr></table></figure>
-<p>行锁还是表锁？<br>触发不到索引的查询有哪些<br>水平分表,满足订单id,卖家id和卖家id查询<br>dubbo为什么用代理(方法的多态,消费组)<br>线程池参数</p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><ul>
+<p>行锁还是表锁？<br>触发不到索引的查询有哪些<br>水平分表,同时满足订单id,卖家id和卖家id分别查询<br>dubbo为什么用代理(方法的多态,消费组)<br>线程池参数<br>算法</p>
+<ul>
 <li>用map,  list, array, stack 实现LRU cache</li>
 <li>反转单链表</li>
-<li>字符串转整型</li>
+<li>不用Java Api实现字符串转整型</li>
 <li>足够量大的动物的动物园有一种动物是一只的，其他种类是两只的，找出这种动物</li>
 </ul>
 <h2 id="知乎"><a href="#知乎" class="headerlink" title="知乎"></a>知乎</h2><ul>
 <li>spring　aop ioc, 动态代理中jdk和clib的区别  </li>
 <li>redis线程模型为什么快(NIO)  </li>
-<li>redis分布式锁,多线程，某个线程阻塞超时，重新执行时锁已被其他获取，自己删除别人的这个锁</li>
+<li>redis分布式锁,多线程，某个线程阻塞超时，重新执行时锁已被其他获取，自己删除别人的这个锁(怎么解决标记锁所属线程，保证原子性)</li>
 <li>dubbo的执行过程, 代理监听和执行这中间做了什么</li>
 <li>HashMap为什么线程不安全(rehash时链表成环)</li>
 <li>ConcurrentHashMap怎么做到的分段锁，怎么得到的当前的大小</li>
 <li>线程池参数</li>
-<li>AQS怎么做的线程放入队列，释放锁唤醒队列线程</li>
+<li>AQS怎么做的线程放入队列，释放锁唤醒队列线程(源码细节)</li>
 <li>CAS</li>
 <li>mysql事务隔离级别</li>
-<li>索引结构，　B+树数据全部存在叶子节点的好处</li>
+<li>索引结构，　B+树数据全部存在叶子节点的好处(B树也可以把数据连起来啊)</li>
 <li>回表,覆盖索引</li>
 </ul>
 <h2 id="新浪金融"><a href="#新浪金融" class="headerlink" title="新浪金融"></a>新浪金融</h2><p>算法</p>
@@ -679,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#58金融"><span class="nav-number">1.</span> <span class="nav-text">58金融</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#瓜子"><span class="nav-number">2.</span> <span class="nav-text">瓜子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一轮"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一轮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二轮"><span class="nav-number">2.0.2.</span> <span class="nav-text">第二轮</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#洋钱罐"><span class="nav-number">3.</span> <span class="nav-text">洋钱罐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法手写"><span class="nav-number">3.0.1.</span> <span class="nav-text">算法手写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vipkid"><span class="nav-number">4.</span> <span class="nav-text">vipkid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转转"><span class="nav-number">5.</span> <span class="nav-text">转转</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法"><span class="nav-number">5.0.1.</span> <span class="nav-text">算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知乎"><span class="nav-number">6.</span> <span class="nav-text">知乎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新浪金融"><span class="nav-number">7.</span> <span class="nav-text">新浪金融</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#58金融"><span class="nav-number">1.</span> <span class="nav-text">58金融</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#瓜子"><span class="nav-number">2.</span> <span class="nav-text">瓜子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一轮"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一轮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二轮"><span class="nav-number">2.0.2.</span> <span class="nav-text">第二轮</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#洋钱罐"><span class="nav-number">3.</span> <span class="nav-text">洋钱罐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法手写"><span class="nav-number">3.0.1.</span> <span class="nav-text">算法手写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vipkid"><span class="nav-number">4.</span> <span class="nav-text">vipkid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转转"><span class="nav-number">5.</span> <span class="nav-text">转转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知乎"><span class="nav-number">6.</span> <span class="nav-text">知乎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新浪金融"><span class="nav-number">7.</span> <span class="nav-text">新浪金融</span></a></li></div>
             
 
           </div>
