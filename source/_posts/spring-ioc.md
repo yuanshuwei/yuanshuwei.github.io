@@ -100,3 +100,15 @@ AOP
 
 ACID/隔离级别/事务传播
 > [参考这个吧](https://www.cnblogs.com/ooo0/p/11029658.html)
+
+#### 事务的传播性
+|name|特性|
+|-|-|
+|PROPAGATION_REQUIRED|spring默认的机制，如果外层有事务则当前事务加入到外层事务，一块提交一块回滚，如果外层没有事务则当前开启一个新事务|
+|PROPAGATION_REQUIRES_NEW|每次开启一个新事务，同时把外层的事务挂起，当前事务执行完毕后恢复上层事务的执行|
+|PROPAGATION_SUPPORTS|如果外层有事务则加入该事务，如果不存在也不会新建事务|
+|PROPAGATION_NOT_SUPPORTED|不支持事务，外层事务挂起，执行当前逻辑，恢复外层事务|
+|PROPAGATION_NEVER|不支持事务，外层存在事务则直接抛出异常|
+|PROPAGATION_MANDATORY|配置了的方法只能在已存在事务的方法调用，如果不存在事务的方法调用，抛出异常|
+|PROPAGATION_NESTED|可以保存状态保存点，事务回滚时会回滚到某一个点上，从而避免所有嵌套事务都回滚|
+

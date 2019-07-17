@@ -44,12 +44,6 @@ categories: 面试
 ## Jvm
 {% post_link JVM %} //todo 完善
 
-## 设计模式
-- 手写单例
-- 手写工厂模式
-- 手写生产者消费者
-- 动态代理
-
 ## 框架
 ##### dubbo
 - 与springcloud的区别-服务调用方式和关注点不同
@@ -69,7 +63,9 @@ categories: 面试
   在低压力时间段，先升级一半Provider为新版本；
   1. 再将所有消费者升级为新版本；
   2. 然后将剩下的一半提供者升级为新版本。
-- 限流、降级
+- 限流、降级(return null)
+- [dubbo sentinel](http://dubbo.apache.org/zh-cn/blog/sentinel-introduction-for-dubbo.html)
+- [dubbo spi](http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html)
 - 源码
 - [掘金-肥朝](https://juejin.im/search?query=%E8%82%A5%E6%9C%9D&type=all)
 
@@ -108,8 +104,14 @@ categories: 面试
 - [快排实现](https://juejin.im/post/5b55660ee51d4519202e2003): 分治
 - [排序稳定性分析](https://www.jianshu.com/p/9e855ba2b079)
 - [二分查找](https://juejin.im/post/5b15ff73e51d4506b113d956)
-- 斐波那契
+- [斐波那契](https://www.jianshu.com/p/0755888b946b)
 - [B树、B+树与红黑树](https://www.jianshu.com/p/86a1fd2d7406)
+- [深度和广度优先](https://dyygusi.iteye.com/blog/2162617)
+- [最长回文子串](https://www.jianshu.com/p/138ff21d9ede)
+- [懒加载单例](https://blog.csdn.net/xjy9266/article/details/75371179)
+- 手写工厂模式
+- 手写生产者消费者
+- 动态代理
   
 ## 刷题
 - 剑指offer {[参考](https://github.com/CyC2018/CS-Notes)}
