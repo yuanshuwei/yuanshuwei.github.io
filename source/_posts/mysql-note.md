@@ -26,7 +26,7 @@ mysql基础架构
 - 写入redo log处理prepare阶段
 - 写入bin log 提交事务，处于commit状态
 
-#### 为什么两端提交？
+#### 为什么两段提交？
 使得bin log与 redo log一致
 redo log: 少一条的话，更新数据库重启的恢复
 bin log: 影响数据库备份的数据

@@ -379,3 +379,152 @@ Class文件中有两种数据类型：无符号数和表。
 字段表集合  
 方法表集合  
 属性表集合   
+
+### 类加载
+
+#### 自定义类加载
+```
+public class MyClassLoader extends ClassLoader {
+
+    private String path;
+    private String name;
+
+    public MyClassLoader(String path, String name) {
+        this.path = path;
+        this.name = name;
+    }
+
+    @Override
+    public Class findClass(String name) {
+
+        byte[] b = loadClassData(name);
+        return defineClass(name, b, 0, b.length);
+    }
+
+    // 加载类文件二进制字节码
+    private byte[] loadClassData(String name) {
+        name = path + name + ".class";
+        InputStream in = null;
+        ByteArrayOutputStream out = null;
+        try {
+            in = new FileInputStream(new File(name));
+            out = new ByteArrayOutputStream();
+            int i = 0;
+            while ((i = in.read()) != -1) {
+                out.write(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+                in.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return out.toByteArray();
+    }
+}
+
+public class ClassLoaderCheck {
+
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+        MyClassLoader myClassLoader = new MyClassLoader("/Users/yuan/Desktop/", "myClassLoader");
+        Class clazz = myClassLoader.findClass("Bot");
+        clazz.newInstance();
+    }
+}
+```
+
+#### 类加载器分类:
+- BootStrapClassLoader: C++编写，加载核心库java
+- ExtClassLoader: Java编写，加载扩展库javax.*
+- AppClassLoader: Java编写，加载程序所在目录
+- 自定义ClassLoader: Java编写，定制化加载
+
+
+#### 双亲委派机制
+自底向上查找，自上向下加载;代码的loadclass中，加载类时，循环判断父加载器不为空就先尝试加载父加载器，直到加载C++编写的BootStrapClassLoader。 `CustomClassLoader->AppClassLoader->ExtClassLoader->BooStrapClassLoader`
+类本身+类加载器唯一确定在jvm  的唯一性。所以自定义加载同类名的类，无法加载
+[参考](https://www.jianshu.com/p/353c26c744df)
+
+#### 为什么用双亲委派模型?
+每个类加载器是一个类加载空间，隔开的各个类的加载优先级；
+- 避免多份同样的字节码的加载，逐层去查找
+
+#### loadClass, forName的区别
+- 加载class文件字节码，生成Class对象
+- 校验(正确和安全)、准备(为类变量分配空间并设置变量初始值)、解析(JVM常量池的符号引用转为直接引用)
+- 初始化(执行类变量赋值和静态代码块)
+
+forName是加载类并已完成了初始化(比如执行静态代码块); loadClass没有链接的
+
+#### 三大性能调优参数 -Xms -Xmx -Xss的含义
+- -Xss: 规定每个线程虚拟机栈的大小，影响并发线程数的大小
+- -Xms: 堆的初始值
+- -Xmx: 堆能达到的最大值
+> 一般-Xms与-Xmx设置成一样大小，防止扩容时的抖动
+
+#### Java内存模型中堆和栈的区别-内存分配策略
+- 静态存储: 编译时确定每个数据目标在运行时的存储空间需求
+- 栈式存储: 数据区需求在编译时未知，运行时模块入口前确定
+- 堆式存储: 编译时或运行时模块入口都无法确定，动态分配
+- 管理方式: 栈自动释放，堆需要GC
+- 空间大小: 栈比堆小
+- 碎片相关: 栈产生的碎片远小于堆
+- 分配方式: 栈支持静态和动态分配，堆只支持动态分配
+- 效率: 栈效率比堆高
+
+#### intern方法
+如果常量池中不存在，则把字符串放到常量池中，存在则直接返回其引用；
+JDK6以上:除了检查常量池是否存在，还检查堆中是否存在，如果存在则将对象的引用放在常量池并返回
+
+#### Java内存结构
+线程私有:
+  - 程序计数器
+  - 虚拟机栈
+  - 本地方法栈
+
+线程共享:
+  - 堆(JDK6以上: 常量池放在堆中，之前在永久代，频繁创建放到常量池容易OOM: PermGen spcae)
+  - MetaSpace: 类加载信息
+
+#### GC Root
+- 虚拟机栈中引用的对象(栈帧中的本地变量表)
+- 方法区中的常量引用的对象
+- 方法区中的类静态属性引用的对象
+- 本地方法栈中JNI(Native方法)的引用对象
+- 活跃线程的引用对象
+
+#### 回收算法
+- 标记-清除
+- 复制: 解决碎片化问题
+- 标记-整理
+- 分代收集
+> JDK8以后取消了永代，可以减少Full GC的频率
+
+#### 常见的垃圾收集器
+...
+#### 强引用、软引用、弱引用、虚引用
+- 强引用(Strong Reference)
+  - Object obj = new Object()
+  - 抛出OOM也不会回收这个内存
+- 软引用(Soft Reference)
+  - 对象处于有用但非必须的状态
+  - 只有空间不足时，才会回收这个对象内存
+  - 可以实现高速缓存
+  ```
+  String str= new String("a")
+  SoftReference<String> s = new SoftReference<String>(str) //软引用
+  ```
+- 弱引用(Weak Reference)
+  - 非必须对象，比软引用更弱
+  - GC时被回收
+  - 被回收的概率不大，因为回收的优先级比较低
+  - 适用于偶尔会适用，不影响GC垃圾收集的对象
+- 虚引用(Phntom Reference)
+  - 不会决定对象的生命周期
+  - 任何时候都能被回收
+  - 跟踪垃圾回收期回收活动，起到哨兵作用
+  - 必须和引用队列ReferenceQueue联合使用

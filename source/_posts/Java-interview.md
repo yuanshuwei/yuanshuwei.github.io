@@ -31,9 +31,6 @@ categories: 面试
 #### MySql
 - {% post_link mysql-note %}
 - [索引详解](http://shanks.leanote.com/post/Mysql%E7%B4%A2%E5%BC%95)
-- 主从复制原理、作用、实现。
-- 水平切分与垂直切分。
-- 分库分表，分库分表中间件？
 
 #### redis
 
@@ -42,7 +39,7 @@ categories: 面试
 - {% post_link redis-note %}
 
 ## Jvm
-{% post_link JVM %} //todo 完善
+{% post_link JVM %}
 
 ## 框架
 ##### dubbo
@@ -72,10 +69,7 @@ categories: 面试
 ##### service mesh 是什么
 
 ##### spring
-- MVC
-- AOP
-  - 实现方式
-  - 应用场景
+- {% post_link spring-ioc %}
 - [spring扩展点](https://blog.csdn.net/qq_38182963/article/details/78795058)
 
 ## 分布式
@@ -114,7 +108,8 @@ categories: 面试
 - 动态代理
   
 ## 刷题
-- 剑指offer {[参考](https://github.com/CyC2018/CS-Notes)}
+- [剑指offer](https://doocs.gitee.io/coding-interview/#/docs/coding-interview)
+- [leetcode](https://github.com/doocs/leetcode)
 
 ## 其他
 - [看看知识和岗位](https://github.com/CyC2018/)

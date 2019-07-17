@@ -47,3 +47,98 @@ categories:
     - ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。
     - ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
     - ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
+
+#### 进程与线程的区别
+进程独占程序内存，线程是对进程拆分的多个任务的并发执行；进程是资源分配的最小单位，线程是CPU调度的最小单位。
+
+#### Thread的start和run
+start()方法会创建一个新的子线程并启动；run()方法只是一个普通方法的调用
+
+#### 线程返回值
+通过Callable接口实现，通过FutureTask或线程池获取
+
+```
+public class MyCallable implements Callable<String> {
+
+    public String call() throws Exception {
+        String value = "test";
+        System.out.println("Ready to work");
+        Thread.sleep(5000);
+        System.out.println("work done");
+        return value;
+    }
+}
+
+public class CallableDemo {
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        FutureTask task = new FutureTask(new MyCallable());
+        new Thread(task).start();
+        if (!task.isDone()) {
+            System.out.println("task has not finished, pleaser wait!");
+        }
+        System.out.println("task return :" + task.get());
+    }
+}
+
+public class ThreadPoolDemo {
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Future<String> future = executorService.submit(new MyCallable());
+        if (!future.isDone()) {
+            System.out.println("task has not finished, pleaser wait!");
+        }
+        try {
+            System.out.println(future.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } finally {
+            executorService.shutdown();
+        }
+    }
+}
+```
+
+#### 线程状态
+新建、运行(running和ready)、无限期等待、限期等待、阻塞、结束
+
+#### sleep和wait
+sleep只让出cpu，不会导致锁行为的变化；wait不仅让出cpu还释放已占有的同步资源锁
+
+#### synchronized
+- 每个Java对象头存储的锁信息，代码块monitorenter,monitorexit,锁方法，ACC_SYNCHRONIZED标志；
+- 早期属于重量级锁，原来mutex lock实现，线程切换需要用户态转到核心态，开销很大
+
+#### ReentrantLock
+AQS实现，可以对获取锁的等待时间进行设置，避免死锁；可以获取各种锁信息；可以灵活实现多路通知；Sync操作Mark Word，lock调用Unsafe类的park()方法
+
+#### HashMap put方法逻辑
+- 如果未初始化过，则初始化
+- 对key求hash，然后计算下标
+- 如果没有碰撞，直接放入桶中
+- 如果碰撞了，已链表方式链接到后面
+- 如果链表长度超过阈值，链表转为红黑树
+- 如果节点已存在就替换旧值
+- 如果桶满了就resize(扩容2倍后重排)
+
+#### ConccurentHashMap
+CAS+synchronized使锁更细化； 数组+链表+红黑树
+
+#### JUC梳理
+- collections: Queue,ConcurrentMap,
+- executor: Furure,Callable,Executor
+- tools: CountDownLatch,CyclicBarrier,Semaphore,Executors,Exchanger
+- locks:ReentantLock, Condition,ReadWriteLock,LockSypport
+- atomic: AtomicInteger...
+
+#### BlockingQueue
+- ArrayBlockingQueue: 数组结构组成的有界阻塞队列
+- LinkedBlockingQueue: 链表结构组成的有界/无界阻塞队列
+- PriorityBlockingQueue: 支持优先级排序的无界阻塞队列
+- DelayQueue: 优先级实现的无界阻塞队列
+- SynchronousQueue: 不存储元素的阻塞队列
+- LinkedTransferQueue: 链表结构组成的无界阻塞队列
+- LinkedBlockingDeque: 链表结构组成的双向阻塞队列
