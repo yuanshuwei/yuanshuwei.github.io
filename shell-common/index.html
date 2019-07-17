@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="面试,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="面试中高级的一些准备提纲, 持续更新">
-<meta name="keywords" content="面试">
+<meta name="description" content="常见shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java面试">
-<meta property="og:url" content="http://yoursite.com/Java-interview/index.html">
+<meta property="og:title" content="常见shell">
+<meta property="og:url" content="http://yoursite.com/shell-common/index.html">
 <meta property="og:site_name" content="yswape">
-<meta property="og:description" content="面试中高级的一些准备提纲, 持续更新">
+<meta property="og:description" content="常见shell">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T16:17:05.479Z">
+<meta property="og:updated_time" content="2019-07-17T16:09:28.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java面试">
-<meta name="twitter:description" content="面试中高级的一些准备提纲, 持续更新">
+<meta name="twitter:title" content="常见shell">
+<meta name="twitter:description" content="常见shell">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/Java-interview/">
+  <link rel="canonical" href="http://yoursite.com/shell-common/">
 
 
 
 
 
-  <title>Java面试 | yswape</title>
+  <title>常见shell | yswape</title>
   
 
 
@@ -285,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Java-interview/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/shell-common/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yswape">
@@ -302,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java面试</h1>
+          <h1 class="post-title" itemprop="name headline">常见shell</h1>
         
 
         <div class="post-meta">
@@ -314,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T22:18:41+08:00">
-                2019-04-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T00:08:46+08:00">
+                2019-07-18
               </time>
             
 
@@ -324,28 +323,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/面试/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -374,116 +351,30 @@
       
 
       
-        <p>面试中高级的一些准备提纲, <code>持续更新</code><br><a id="more"></a></p>
-<blockquote>
-<p><a href="http://nivelle.me/javaInterview/" target="_blank" rel="noopener">同学整理</a><br><a href="/interview-experience-2019/" title="2019面经">2019面经</a></p>
-</blockquote>
-<p><strong>整体参考</strong>:</p>
+        <p>常见shell</p>
+<a id="more"></a>
 <ul>
-<li><a href="https://github.com/doocs/advanced-java" target="_blank" rel="noopener">高并发、分布式等，适合面试</a></li>
-<li><a href="https://github.com/Snailclimb/JavaGuide" target="_blank" rel="noopener">基础知识+算法题解、源码分析</a></li>
-</ul>
-<h2 id="消息中间件"><a href="#消息中间件" class="headerlink" title="消息中间件"></a>消息中间件</h2><a href="/message-middleware/" title="消息中间件面试常见问题">消息中间件面试常见问题</a>
-<p><a href="https://www.cnblogs.com/duanxz/p/4705164.html" target="_blank" rel="noopener">kafka为什么那么快</a></p>
+<li><p>文件检索: find</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">find ~ -name &quot;build.sh&quot;　#　精确查找</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find ~ -name &quot;build.*&quot;　# 通配符</span><br><span class="line"></span><br><span class="line">find ~ -iname &quot;build.sh&quot;  # 忽略大小写</span><br><span class="line"></span><br><span class="line">man find</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件内容检索: grep</p>
+</li>
+<li><p>grep [options] pattern file</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;moo&quot; target* # 查询包含内容&quot;moo&quot;并且文件名以target开头的文件和目标字段串所在的行的内容</span><br></pre></td></tr></table></figure>
 <ul>
-<li>生产者: 顺序写入、内存映射文件(同步或异步更新到磁盘)</li>
-<li>消费者: 全部以文件方式发送到消费者<br>……</li>
-</ul>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><ul>
-<li>集合<ul>
-<li><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/HashMap.md" target="_blank" rel="noopener">HashMap底层</a></li>
-<li><a href="/Java-Collection/" title="Java集合总述">Java集合总述</a></li>
+<li><code>grep &quot;ss&quot; ss.log</code>  查找包含你指定内容的行，并打印你呢</li>
+<li><code>grep -o</code> 只显示想要的数据部分</li>
+<li><code>grep -v</code> 过滤掉目标数据</li>
 </ul>
 </li>
-<li>并发<ul>
-<li><a href="/concurrent-note/" title="并发笔记">并发笔记</a>
+<li><p>管道操作符 |  输出作为后面的输入    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ~ | grep &quot;target&quot;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
+<li><p>文件呢内容的统计: awk</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk [options] &apos;cmd&apos; file ＃ 特别适合表格类数据，统计等</span><br><span class="line">awk &apos;&#123;print $1,$4&#125;&apos; netstat.txt #打印第一行和第四行, awk默认以空格分割</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h4 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h4><ul>
-<li><a href="/mysql-note/" title="mysql笔记">mysql笔记</a></li>
-<li><a href="http://shanks.leanote.com/post/Mysql%E7%B4%A2%E5%BC%95" target="_blank" rel="noopener">索引详解</a></li>
-</ul>
-<h4 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h4><blockquote>
-<p><a href="https://github.com/doocs/advanced-java" target="_blank" rel="noopener">github参考</a></p>
-</blockquote>
-<ul>
-<li><a href="/redis-note/" title="redis笔记">redis笔记</a>
-</li>
-</ul>
-<h2 id="Jvm"><a href="#Jvm" class="headerlink" title="Jvm"></a>Jvm</h2><a href="/JVM/" title="JVM">JVM</a>
-<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><h5 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h5><ul>
-<li>与springcloud的区别-服务调用方式和关注点不同<ul>
-<li>dubbo服务间调用采用RPC，长连接，性能会更好</li>
-<li>支持多种序列化协议</li>
-<li>不支持跨语言，自己再包装一层REST服务，相对更麻烦；服务提供和消费者强依赖</li>
-<li>分布式配置、服务追踪等，需要借助其他框架，风险大</li>
-<li>而对于springcloud，社区很活跃，提供了整套的微服务解决方案，部署快，支持REST，跨语言，提供了docker支持</li>
-<li>选择的关注点：是否存在异构系统的集成问题；功能特性是否满足；http协议的通信是否会成为瓶颈点；springcloud也不是必须http+json也可配置；dubbo需要内部有一个维护的团队</li>
-</ul>
-</li>
-<li><p>灰度<br>当一个接口出现不兼容升级时，可以用版本号过渡，版本号不同的服务相互不调用，实现灰度发布,步骤如下:</p>
-<ol>
-<li>接口旧的实现定义version=”1.0.0”，接口新的实现version=”2.0.0”</li>
-<li>Consumer端定义version=”*”</li>
-</ol>
-<p>这样定义Provider和Consumer后，新旧接口实现各承担<code>50%</code>的流量；<br>利用dubbo该特性，还能完成不兼容版本迁移：<br>在低压力时间段，先升级一半Provider为新版本；</p>
-<ol>
-<li>再将所有消费者升级为新版本；</li>
-<li>然后将剩下的一半提供者升级为新版本。</li>
-</ol>
-</li>
-<li>限流、降级(return null)</li>
-<li><a href="http://dubbo.apache.org/zh-cn/blog/sentinel-introduction-for-dubbo.html" target="_blank" rel="noopener">dubbo sentinel</a></li>
-<li><a href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html" target="_blank" rel="noopener">dubbo spi</a></li>
-<li>源码</li>
-<li><a href="https://juejin.im/search?query=%E8%82%A5%E6%9C%9D&amp;type=all" target="_blank" rel="noopener">掘金-肥朝</a></li>
-</ul>
-<h5 id="service-mesh-是什么"><a href="#service-mesh-是什么" class="headerlink" title="service mesh 是什么"></a>service mesh 是什么</h5><h5 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h5><ul>
-<li><a href="/spring-ioc/" title="spring ioc aop">spring ioc aop</a></li>
-<li><a href="https://blog.csdn.net/qq_38182963/article/details/78795058" target="_blank" rel="noopener">spring扩展点</a></li>
-</ul>
-<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
-<li>分布式事务</li>
-<li>分布式锁<ul>
-<li>redis<br><code>SET resource_name my_random_value NX PX 30000</code><br>NX：表示只有 key 不存在的时候才会设置成功。（如果此时 redis 中存在这个 key，那么设置失败，返回 nil）;<br>PX 30000：意思是 30s 后锁自动释放。别人创建的时候如果发现已经有了就不能加锁了。<br>优化: RedLock 算法; 对于redis cluster，尝试在大多数节点上建立锁就算成功，删除的时候依次删除</li>
-<li>zookeeper<br>尝试创建临时znode节点，创建成功就获取到了这个锁；那么其他机器再去尝试创建znode节点会失败，只能注册个监听器监听这个锁。释放锁就是删除这个znode，一旦释放就会通知客户端，然后一个等待的客户端可以再次重新加锁</li>
-<li>redis需要不断尝试去获取锁，开销较大；zk获取不到锁时，注册个监听器即可</li>
-</ul>
-</li>
-<li>zookeeper<ul>
-<li>分布式协调<br>Ａ系统发出请求以后可以在zookeeper上<strong>对某个节点的值注册个监听器</strong>,一旦Ｂ系统处理完成就修改zookeeper那个节点的值，Ａ系统立马可以收到通知</li>
-<li>分布式锁<br>创建znode节点，那么其他机器再去尝试创建znode节点会失败</li>
-<li>元数据/配置信息管理</li>
-<li>HＡ高可用<br>一个重要的进程一般会做准备两个，主进程挂了立马通过zookeeper感知到切换刀备用进程</li>
-</ul>
-</li>
-<li>一致性hash</li>
-</ul>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
-<li>几大排序：描述和代码实现 <a href="https://github.com/ZhongFuCheng3y/3y/blob/master/src/sort.md" target="_blank" rel="noopener">参考</a></li>
-<li><a href="https://juejin.im/post/5b55660ee51d4519202e2003" target="_blank" rel="noopener">快排实现</a>: 分治</li>
-<li><a href="https://www.jianshu.com/p/9e855ba2b079" target="_blank" rel="noopener">排序稳定性分析</a></li>
-<li><a href="https://juejin.im/post/5b15ff73e51d4506b113d956" target="_blank" rel="noopener">二分查找</a></li>
-<li><a href="https://www.jianshu.com/p/0755888b946b" target="_blank" rel="noopener">斐波那契</a></li>
-<li><a href="https://www.jianshu.com/p/86a1fd2d7406" target="_blank" rel="noopener">B树、B+树与红黑树</a></li>
-<li><a href="https://dyygusi.iteye.com/blog/2162617" target="_blank" rel="noopener">深度和广度优先</a></li>
-<li><a href="https://www.jianshu.com/p/138ff21d9ede" target="_blank" rel="noopener">最长回文子串</a></li>
-<li><a href="https://blog.csdn.net/xjy9266/article/details/75371179" target="_blank" rel="noopener">懒加载单例</a></li>
-<li>手写工厂模式</li>
-<li>手写生产者消费者</li>
-<li>动态代理</li>
-</ul>
-<h2 id="刷题"><a href="#刷题" class="headerlink" title="刷题"></a>刷题</h2><ul>
-<li><a href="https://doocs.gitee.io/coding-interview/#/docs/coding-interview" target="_blank" rel="noopener">剑指offer</a></li>
-<li><a href="https://github.com/doocs/leetcode" target="_blank" rel="noopener">leetcode</a></li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li><a href="https://github.com/CyC2018/" target="_blank" rel="noopener">看看知识和岗位</a></li>
-<li><a href="https://github.com/CyC2018/Markdown-Resume" target="_blank" rel="noopener">简历模板</a></li>
-<li><a href="https://github.com/CyC2018/Backend-Interview-Guide/blob/master/doc/%E5%86%99%E5%A5%BD%E6%8A%80%E6%9C%AF%E7%AE%80%E5%8E%86.md" target="_blank" rel="noopener">写简历</a></li>
-<li><a href="https://github.com/CyC2018/Backend-Interview-Guide/blob/master/doc/%E6%89%AB%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B.md" target="_blank" rel="noopener">扫码登录</a></li>
+<li><p>批量替换文本内容: sed</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;s/^Str/String/&apos; xx.java #Str开头的Str替换为String</span><br><span class="line">sed -i &apos;/\.$/\;/&apos; xx.java #.结尾的替换为;</span><br><span class="line">sed -i &apos;/Jack/me/g&apos; xx.java ＃Jack替换成me，g是整行替换</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -500,12 +391,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
-          
-        </div>
-      
 
       
       
@@ -515,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/JVM/" rel="next" title="JVM">
-                <i class="fa fa-chevron-left"></i> JVM
+              <a href="/spring-ioc/" rel="next" title="spring ioc aop">
+                <i class="fa fa-chevron-left"></i> spring ioc aop
               </a>
             
           </div>
@@ -524,10 +409,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Redis五种数据类型/" rel="prev" title="Redis五种数据类型">
-                Redis五种数据类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -579,17 +460,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -665,22 +537,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息中间件"><span class="nav-number">1.</span> <span class="nav-text">消息中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySql"><span class="nav-number">3.0.1.</span> <span class="nav-text">MySql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis"><span class="nav-number">3.0.2.</span> <span class="nav-text">redis</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Jvm"><span class="nav-number">4.</span> <span class="nav-text">Jvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">5.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dubbo"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">dubbo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service-mesh-是什么"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">service mesh 是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spring"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">spring</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式"><span class="nav-number">6.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">7.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷题"><span class="nav-number">8.</span> <span class="nav-text">刷题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">9.</span> <span class="nav-text">其他</span></a></li></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

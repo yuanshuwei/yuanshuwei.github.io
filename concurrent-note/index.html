@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="并发笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T09:17:49.075Z">
+<meta property="og:updated_time" content="2019-07-17T16:14:00.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发笔记">
 <meta name="twitter:description" content="并发笔记">
@@ -407,6 +407,43 @@
 </ul>
 </li>
 </ul>
+<h4 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h4><p>进程独占程序内存，线程是对进程拆分的多个任务的并发执行；进程是资源分配的最小单位，线程是CPU调度的最小单位。</p>
+<h4 id="Thread的start和run"><a href="#Thread的start和run" class="headerlink" title="Thread的start和run"></a>Thread的start和run</h4><p>start()方法会创建一个新的子线程并启动；run()方法只是一个普通方法的调用</p>
+<h4 id="线程返回值"><a href="#线程返回值" class="headerlink" title="线程返回值"></a>线程返回值</h4><p>通过Callable接口实现，通过FutureTask或线程池获取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class MyCallable implements Callable&lt;String&gt; &#123;</span><br><span class="line"></span><br><span class="line">    public String call() throws Exception &#123;</span><br><span class="line">        String value = &quot;test&quot;;</span><br><span class="line">        System.out.println(&quot;Ready to work&quot;);</span><br><span class="line">        Thread.sleep(5000);</span><br><span class="line">        System.out.println(&quot;work done&quot;);</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class CallableDemo &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">        FutureTask task = new FutureTask(new MyCallable());</span><br><span class="line">        new Thread(task).start();</span><br><span class="line">        if (!task.isDone()) &#123;</span><br><span class="line">            System.out.println(&quot;task has not finished, pleaser wait!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;task return :&quot; + task.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ThreadPoolDemo &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ExecutorService executorService = Executors.newCachedThreadPool();</span><br><span class="line">        Future&lt;String&gt; future = executorService.submit(new MyCallable());</span><br><span class="line">        if (!future.isDone()) &#123;</span><br><span class="line">            System.out.println(&quot;task has not finished, pleaser wait!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        try &#123;</span><br><span class="line">            System.out.println(future.get());</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            executorService.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h4><p>新建、运行(running和ready)、无限期等待、限期等待、阻塞、结束</p>
+<h4 id="sleep和wait"><a href="#sleep和wait" class="headerlink" title="sleep和wait"></a>sleep和wait</h4><p>sleep只让出cpu，不会导致锁行为的变化；wait不仅让出cpu还释放已占有的同步资源锁</p>
+<h4 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h4><ul>
+<li>每个Java对象头存储的锁信息，代码块monitorenter,monitorexit,锁方法，ACC_SYNCHRONIZED标志；</li>
+<li>早期属于重量级锁，原来mutex lock实现，线程切换需要用户态转到核心态，开销很大</li>
+</ul>
+<h4 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h4><p>AQS实现，可以对获取锁的等待时间进行设置，避免死锁；可以获取各种锁信息；可以灵活实现多路通知；Sync操作Mark Word，lock调用Unsafe类的park()方法</p>
+<h4 id="HashMap-put方法逻辑"><a href="#HashMap-put方法逻辑" class="headerlink" title="HashMap put方法逻辑"></a>HashMap put方法逻辑</h4><ul>
+<li>如果未初始化过，则初始化</li>
+<li>对key求hash，然后计算下标</li>
+<li>如果没有碰撞，直接放入桶中</li>
+<li>如果碰撞了，已链表方式链接到后面</li>
+<li>如果链表长度超过阈值，链表转为红黑树</li>
+<li>如果节点已存在就替换旧值</li>
+<li>如果桶满了就resize(扩容2倍后重排)</li>
+</ul>
+<h4 id="ConccurentHashMap"><a href="#ConccurentHashMap" class="headerlink" title="ConccurentHashMap"></a>ConccurentHashMap</h4><p>CAS+synchronized使锁更细化； 数组+链表+红黑树</p>
+<h4 id="JUC梳理"><a href="#JUC梳理" class="headerlink" title="JUC梳理"></a>JUC梳理</h4><ul>
+<li>collections: Queue,ConcurrentMap,</li>
+<li>executor: Furure,Callable,Executor</li>
+<li>tools: CountDownLatch,CyclicBarrier,Semaphore,Executors,Exchanger</li>
+<li>locks:ReentantLock, Condition,ReadWriteLock,LockSypport</li>
+<li>atomic: AtomicInteger…</li>
+</ul>
+<h4 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h4><ul>
+<li>ArrayBlockingQueue: 数组结构组成的有界阻塞队列</li>
+<li>LinkedBlockingQueue: 链表结构组成的有界/无界阻塞队列</li>
+<li>PriorityBlockingQueue: 支持优先级排序的无界阻塞队列</li>
+<li>DelayQueue: 优先级实现的无界阻塞队列</li>
+<li>SynchronousQueue: 不存储元素的阻塞队列</li>
+<li>LinkedTransferQueue: 链表结构组成的无界阻塞队列</li>
+<li>LinkedBlockingDeque: 链表结构组成的双向阻塞队列</li>
+</ul>
 
       
     </div>
@@ -495,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -572,6 +618,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">1.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thread的start和run"><span class="nav-number">2.</span> <span class="nav-text">Thread的start和run</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程返回值"><span class="nav-number">3.</span> <span class="nav-text">线程返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程状态"><span class="nav-number">4.</span> <span class="nav-text">线程状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep和wait"><span class="nav-number">5.</span> <span class="nav-text">sleep和wait</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#synchronized"><span class="nav-number">6.</span> <span class="nav-text">synchronized</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReentrantLock"><span class="nav-number">7.</span> <span class="nav-text">ReentrantLock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap-put方法逻辑"><span class="nav-number">8.</span> <span class="nav-text">HashMap put方法逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConccurentHashMap"><span class="nav-number">9.</span> <span class="nav-text">ConccurentHashMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JUC梳理"><span class="nav-number">10.</span> <span class="nav-text">JUC梳理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BlockingQueue"><span class="nav-number">11.</span> <span class="nav-text">BlockingQueue</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

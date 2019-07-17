@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="redis笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T09:17:49.079Z">
+<meta property="og:updated_time" content="2019-07-17T16:07:51.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis笔记">
 <meta name="twitter:description" content="redis笔记">
@@ -352,8 +352,114 @@
 
       
         <p>redis笔记<br><a id="more"></a></p>
+<h4 id="与Memcache区别"><a href="#与Memcache区别" class="headerlink" title="与Memcache区别"></a>与Memcache区别</h4><ul>
+<li>memcache支持简单数据类型</li>
+<li>不支持持久化</li>
+<li>不支持主从同步</li>
+<li>不支持分片</li>
+<li>Redis数据类型丰富</li>
+<li>支持持久化存储</li>
+<li>支持主从</li>
+<li>支持分片</li>
+</ul>
+<h4 id="Redis很快"><a href="#Redis很快" class="headerlink" title="Redis很快"></a>Redis很快</h4><ul>
+<li>基于内存</li>
+<li>数据结构简单，不设计关联</li>
+<li>单线程处理高并发，多核也可启动多实例</li>
+<li>多路I/O复用模型，非阻塞IO</li>
+</ul>
+<h4 id="IO复用模型"><a href="#IO复用模型" class="headerlink" title="IO复用模型"></a>IO复用模型</h4><ul>
+<li>select系统调用</li>
+<li>因地制宜选择IO多路复用函数</li>
+<li>优先选择时间复杂度O(1), O(n)的select作为保底</li>
+<li>基于react设计模式监听IO事件</li>
+</ul>
+<h3 id="常见数据类型"><a href="#常见数据类型" class="headerlink" title="常见数据类型"></a>常见数据类型</h3><ul>
+<li><p>String: 二级制安全的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; set k v</span><br><span class="line">&gt; get k</span><br><span class="line">&gt; incr k</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hash: 类似map结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; hmset lilei name &quot;lilei&quot; age 26 title &quot;Senior&quot;</span><br><span class="line">&gt; hget lilei name</span><br><span class="line">&gt; hset lilei title &quot;Pricipal&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>List： 有序列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; lpush mylist aaa</span><br><span class="line">&gt; lpush mylist bbb</span><br><span class="line">&gt; lpush mylist ccc</span><br><span class="line">&gt; lrange mylist 0 10</span><br><span class="line">1) &quot;ccc&quot;</span><br><span class="line">2) &quot;bbb&quot;</span><br><span class="line">3) &quot;aaa&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set: 不重复的无序集合，哈希表时间，复杂度是O(1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; sadd myset 111</span><br><span class="line">&gt; sadd myset 222</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Sorted Set: 按权重排序的不重复集合, 小到大排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; zadd myset 3 aaa</span><br><span class="line">&gt; zadd myset 1 bbb</span><br><span class="line">&gt; zadd myset 2 ccc</span><br><span class="line">&gt; zrangebyscore myset 0 10</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="海量数据里查询某一前缀的key"><a href="#海量数据里查询某一前缀的key" class="headerlink" title="海量数据里查询某一前缀的key"></a>海量数据里查询某一前缀的key</h3><blockquote>
+<p>摸清边界，数据量</p>
+</blockquote>
+<p>Keys指令对于线上数据量很大，对于内存的消耗和redis服务器都是隐患</p>
+<p><code>scan cursor [pattern] [count]</code></p>
 <ul>
-<li>作用:高性能，高并发；　雪崩: 宕机，事前：主从复制＋哨兵，redis　cluster维持高可用，事中，限流，降级，增加本地缓存，事后: redis持久化，快速恢复数据</li>
+<li>基于游标的迭代器，需要基于上一次的游标延续之前的迭代过程</li>
+<li>以0开始新一次的迭代，知道命令返回游标0完成一次遍历</li>
+<li>不保证每次执行都返回某个给定数量的元素，支持模糊查询</li>
+<li>count只是大概的参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan 0 match k1* count 10</span><br></pre></td></tr></table></figure>
+<h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><p>需要解决的问题：</p>
+<ul>
+<li>互斥性: 同一时间只能一个线程获取到锁</li>
+<li>安全性: 锁只能被持有锁的线程删除</li>
+<li>死锁: 过期时间问题，获取到锁宕机问题</li>
+<li>容错: redis部分宕机，需要还能继续获取到锁</li>
+</ul>
+<p>SETNX 解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETNX K V</span><br></pre></td></tr></table></figure></p>
+<p>不存在则创建成功，已存在则创建失败，v可以存当前线程id或者机器id；<br>还需要设置过期时间， <code>expire k [时间]</code>； 但两个命令不能保证原子性；可能创建成功没设置过期时间就宕机了，此时这个锁一直不能被其他线程获取到。于是redis提供了另外的一个命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set k v [EX second] [PX milliseconds] [NX|XX]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>EX second: 设置键的过期时间为second秒</li>
+<li>PX milliseconds： 设置键的过期时间是毫秒</li>
+<li>NX： 键不存在时，才对键进行设置操作</li>
+</ul>
+<h3 id="Redis异步队列"><a href="#Redis异步队列" class="headerlink" title="Redis异步队列"></a>Redis异步队列</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; rpush mylist aaa</span><br><span class="line">&gt; rpush mylist bbb</span><br><span class="line">&gt; rpush mylist ccc</span><br><span class="line">&gt; lpop mylist</span><br><span class="line">&gt; aaa</span><br></pre></td></tr></table></figure>
+<ul>
+<li>缺点: 没有等待队列里有值就直接消费</li>
+<li>弥补: 可以在应用层引入sleep机制去调用LPOP重试</li>
+</ul>
+<p>不用sleep的话，直接用BLPOP，没有消息的时间就阻塞，超时后再返回。 <code>blpop testlist [超时时间]</code></p>
+<h4 id="主题订阅模式，-pub-sub"><a href="#主题订阅模式，-pub-sub" class="headerlink" title="主题订阅模式， pub/sub"></a>主题订阅模式， pub/sub</h4><ul>
+<li>发生消息，接收消息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; subscribe mytopic</span><br><span class="line">&gt; subscribe mytopic</span><br><span class="line">&gt; publish mytopic &quot;hello&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这种无法保证可达，会丢失。</p>
+<h3 id="数据持久化"><a href="#数据持久化" class="headerlink" title="数据持久化"></a>数据持久化</h3><ul>
+<li>RDB: 快照,每隔一段时间保存当前全量数据，多个文件；速度快文件小，相对容易丢失</li>
+<li>AOF: 保存所有写命令,保存命令；数据不易丢失。文件体积大，恢复时间长</li>
+<li>RDB-AOF混合 持久化方式(redis4.0后)： RDB保存全量数据-AOF保存增量数据</li>
+</ul>
+<p>同时存在AOF和RDB文件，的数据恢复： 重启redis即可。优先加载AOF文件</p>
+<p>###　pipeline</p>
+<ul>
+<li>与linux的管道类似</li>
+<li>redis基于请求响应模式，单个请求处理需要一一应答</li>
+<li>pipeline批量执行指令，节省多次IO往返时间</li>
+</ul>
+<h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3><p>主从同步，从从同步。</p>
+<p><strong>全量同步</strong></p>
+<ul>
+<li>slave发送sync命令到master</li>
+<li>master启动一个后台进程,将redis的数据快照保存在文件中</li>
+<li>master把文件发送给slave，slave对AOF文件加载</li>
+</ul>
+<p><strong>增量同步</strong></p>
+<ul>
+<li>master的写命令存在AOF中,　将命令数据写入缓存然后发生给slave</li>
+</ul>
+<h3 id="整理"><a href="#整理" class="headerlink" title="整理"></a>整理</h3><ul>
+<li>作用:高性能，高并发；　</li>
+<li>雪崩: 宕机的处理<ul>
+<li>事前：主从复制＋哨兵，redis　cluster维持高可用</li>
+<li>事中，限流，降级，增加本地缓存</li>
+<li>事后: redis持久化，快速恢复数据</li>
+</ul>
+</li>
 <li>redis线程模型:  它采用 IO 多路复用机制同时监听多个 socket，将产生事件的 socket 压入内存队列中，事件分派器根据 socket 上的事件类型来选择对应的事件处理器进行处理。多个socket,IO多路复用，文件时间分派器，事件处理器</li>
 <li>redis效率高: 纯内存操作,IO多路复用的非阻塞IO,Ｃ语言实现,单线程避免上下文切换问题,单线程处理高并发，多核也可启动多实例</li>
 <li>数据类型: string,hash,list,set,sorted sort</li>
@@ -376,7 +482,7 @@
 <li><strong>选举算法</strong>: ①跟master断开时长②slave优先级③复制offset(复制数据更多的那个)④run id(大小排序)</li>
 </ul>
 </li>
-<li>集群: <ul>
+<li>集群(redis cluster): <ul>
 <li>16384个槽，哪个master负责哪个槽用户可以指定。所有键都会被直派到具体的槽:CRC64(key)%16384,也就是key的校验和对16384取余得到</li>
 <li>每个节点有自己看来整个集群的状态，包括某个槽对应哪个节点</li>
 <li>当客户端向集群中任一节点发送与数据库键有关的命令时，接收命令的节点会计算出命令要处理的数据库键属于哪个槽（CRC16(key) &amp; 16383），并检查这个槽是否指派给了自己： <ul>
@@ -479,8 +585,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -556,6 +671,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#与Memcache区别"><span class="nav-number">1.</span> <span class="nav-text">与Memcache区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis很快"><span class="nav-number">2.</span> <span class="nav-text">Redis很快</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO复用模型"><span class="nav-number">3.</span> <span class="nav-text">IO复用模型</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#常见数据类型"><span class="nav-number"></span> <span class="nav-text">常见数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#海量数据里查询某一前缀的key"><span class="nav-number"></span> <span class="nav-text">海量数据里查询某一前缀的key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁"><span class="nav-number"></span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis异步队列"><span class="nav-number"></span> <span class="nav-text">Redis异步队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主题订阅模式，-pub-sub"><span class="nav-number">1.</span> <span class="nav-text">主题订阅模式， pub/sub</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据持久化"><span class="nav-number"></span> <span class="nav-text">数据持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制"><span class="nav-number"></span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整理"><span class="nav-number"></span> <span class="nav-text">整理</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
