@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="面试中高级的一些准备提纲, 持续更新">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T10:12:23.970Z">
+<meta property="og:updated_time" content="2019-07-17T05:53:52.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试">
 <meta name="twitter:description" content="面试中高级的一些准备提纲, 持续更新">
@@ -416,12 +416,6 @@
 </li>
 </ul>
 <h2 id="Jvm"><a href="#Jvm" class="headerlink" title="Jvm"></a>Jvm</h2><p><a href="/JVM/" title="JVM">JVM</a> //todo 完善</p>
-<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><ul>
-<li>手写单例</li>
-<li>手写工厂模式</li>
-<li>手写生产者消费者</li>
-<li>动态代理</li>
-</ul>
 <h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><h5 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h5><ul>
 <li>与springcloud的区别-服务调用方式和关注点不同<ul>
 <li>dubbo服务间调用采用RPC，长连接，性能会更好</li>
@@ -443,7 +437,9 @@
 <li>然后将剩下的一半提供者升级为新版本。</li>
 </ol>
 </li>
-<li>限流、降级</li>
+<li>限流、降级(return null)</li>
+<li><a href="http://dubbo.apache.org/zh-cn/blog/sentinel-introduction-for-dubbo.html" target="_blank" rel="noopener">dubbo sentinel</a></li>
+<li><a href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html" target="_blank" rel="noopener">dubbo spi</a></li>
 <li>源码</li>
 <li><a href="https://juejin.im/search?query=%E8%82%A5%E6%9C%9D&amp;type=all" target="_blank" rel="noopener">掘金-肥朝</a></li>
 </ul>
@@ -478,8 +474,14 @@
 <li><a href="https://juejin.im/post/5b55660ee51d4519202e2003" target="_blank" rel="noopener">快排实现</a>: 分治</li>
 <li><a href="https://www.jianshu.com/p/9e855ba2b079" target="_blank" rel="noopener">排序稳定性分析</a></li>
 <li><a href="https://juejin.im/post/5b15ff73e51d4506b113d956" target="_blank" rel="noopener">二分查找</a></li>
-<li>斐波那契</li>
+<li><a href="https://www.jianshu.com/p/0755888b946b" target="_blank" rel="noopener">斐波那契</a></li>
 <li><a href="https://www.jianshu.com/p/86a1fd2d7406" target="_blank" rel="noopener">B树、B+树与红黑树</a></li>
+<li><a href="https://dyygusi.iteye.com/blog/2162617" target="_blank" rel="noopener">深度和广度优先</a></li>
+<li><a href="https://www.jianshu.com/p/138ff21d9ede" target="_blank" rel="noopener">最长回文子串</a></li>
+<li><a href="https://blog.csdn.net/xjy9266/article/details/75371179" target="_blank" rel="noopener">懒加载单例</a></li>
+<li>手写工厂模式</li>
+<li>手写生产者消费者</li>
+<li>动态代理</li>
 </ul>
 <h2 id="刷题"><a href="#刷题" class="headerlink" title="刷题"></a>刷题</h2><ul>
 <li>剑指offer {<a href="https://github.com/CyC2018/CS-Notes" target="_blank" rel="noopener">参考</a>}</li>
@@ -680,7 +682,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息中间件"><span class="nav-number">1.</span> <span class="nav-text">消息中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySql"><span class="nav-number">3.0.1.</span> <span class="nav-text">MySql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis"><span class="nav-number">3.0.2.</span> <span class="nav-text">redis</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Jvm"><span class="nav-number">4.</span> <span class="nav-text">Jvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式"><span class="nav-number">5.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">6.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dubbo"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">dubbo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service-mesh-是什么"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">service mesh 是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spring"><span class="nav-number">6.0.0.3.</span> <span class="nav-text">spring</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式"><span class="nav-number">7.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">8.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷题"><span class="nav-number">9.</span> <span class="nav-text">刷题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">10.</span> <span class="nav-text">其他</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息中间件"><span class="nav-number">1.</span> <span class="nav-text">消息中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySql"><span class="nav-number">3.0.1.</span> <span class="nav-text">MySql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis"><span class="nav-number">3.0.2.</span> <span class="nav-text">redis</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Jvm"><span class="nav-number">4.</span> <span class="nav-text">Jvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">5.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dubbo"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">dubbo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service-mesh-是什么"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">service mesh 是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spring"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">spring</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式"><span class="nav-number">6.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">7.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷题"><span class="nav-number">8.</span> <span class="nav-text">刷题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">9.</span> <span class="nav-text">其他</span></a></li></div>
             
 
           </div>

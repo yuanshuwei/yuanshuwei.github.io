@@ -87,7 +87,7 @@
 <meta property="og:description" content="spring ioc aop">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/spring-ioc.png">
-<meta property="og:updated_time" content="2019-07-16T15:08:55.217Z">
+<meta property="og:updated_time" content="2019-07-17T02:22:18.834Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring ioc aop">
 <meta name="twitter:description" content="spring ioc aop">
@@ -426,6 +426,44 @@
 <blockquote>
 <p><a href="https://www.cnblogs.com/ooo0/p/11029658.html" target="_blank" rel="noopener">参考这个吧</a></p>
 </blockquote>
+<h4 id="事务的传播性"><a href="#事务的传播性" class="headerlink" title="事务的传播性"></a>事务的传播性</h4><table>
+<thead>
+<tr>
+<th>name</th>
+<th>特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>spring默认的机制，如果外层有事务则当前事务加入到外层事务，一块提交一块回滚，如果外层没有事务则当前开启一个新事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRES_NEW</td>
+<td>每次开启一个新事务，同时把外层的事务挂起，当前事务执行完毕后恢复上层事务的执行</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>如果外层有事务则加入该事务，如果不存在也不会新建事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>不支持事务，外层事务挂起，执行当前逻辑，恢复外层事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>不支持事务，外层存在事务则直接抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_MANDATORY</td>
+<td>配置了的方法只能在已存在事务的方法调用，如果不存在事务的方法调用，抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>可以保存状态保存点，事务回滚时会回滚到某一个点上，从而避免所有嵌套事务都回滚</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -606,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-ioc"><span class="nav-number">1.</span> <span class="nav-text">spring ioc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanFactory"><span class="nav-number">1.0.1.</span> <span class="nav-text">BeanFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanFactory与ApplicationContext"><span class="nav-number">1.0.2.</span> <span class="nav-text">BeanFactory与ApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ApplicationContext"><span class="nav-number">1.0.3.</span> <span class="nav-text">ApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getBean方法的代码逻辑"><span class="nav-number">1.0.4.</span> <span class="nav-text">getBean方法的代码逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spring-bean的作用域"><span class="nav-number">1.0.5.</span> <span class="nav-text">spring bean的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spring-bean的生命周期"><span class="nav-number">1.0.6.</span> <span class="nav-text">spring bean的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#销毁"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">销毁</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP"><span class="nav-number">2.</span> <span class="nav-text">AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#spring代理模式的实现"><span class="nav-number">2.0.1.</span> <span class="nav-text">spring代理模式的实现</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-ioc"><span class="nav-number">1.</span> <span class="nav-text">spring ioc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanFactory"><span class="nav-number">1.0.1.</span> <span class="nav-text">BeanFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanFactory与ApplicationContext"><span class="nav-number">1.0.2.</span> <span class="nav-text">BeanFactory与ApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ApplicationContext"><span class="nav-number">1.0.3.</span> <span class="nav-text">ApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getBean方法的代码逻辑"><span class="nav-number">1.0.4.</span> <span class="nav-text">getBean方法的代码逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spring-bean的作用域"><span class="nav-number">1.0.5.</span> <span class="nav-text">spring bean的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spring-bean的生命周期"><span class="nav-number">1.0.6.</span> <span class="nav-text">spring bean的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#销毁"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">销毁</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP"><span class="nav-number">2.</span> <span class="nav-text">AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#spring代理模式的实现"><span class="nav-number">2.0.1.</span> <span class="nav-text">spring代理模式的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务的传播性"><span class="nav-number">2.0.2.</span> <span class="nav-text">事务的传播性</span></a></li></ol></li></div>
             
 
           </div>
