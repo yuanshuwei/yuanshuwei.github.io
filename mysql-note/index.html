@@ -83,16 +83,16 @@
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql笔记">
-<meta property="og:url" content="http://yoursite.com/mysql-note/index.html">
+<meta property="og:url" content="http://yswape.com/mysql-note/index.html">
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="mysql笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/mysql-construct.png">
-<meta property="og:updated_time" content="2019-07-17T15:59:42.417Z">
+<meta property="og:image" content="http://yswape.com/images/mysql-construct.png">
+<meta property="og:updated_time" content="2019-08-13T09:39:23.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql笔记">
 <meta name="twitter:description" content="mysql笔记">
-<meta name="twitter:image" content="http://yoursite.com/images/mysql-construct.png">
+<meta name="twitter:image" content="http://yswape.com/images/mysql-construct.png">
 
 
 
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/mysql-note/">
+  <link rel="canonical" href="http://yswape.com/mysql-note/">
 
 
 
@@ -287,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/mysql-note/">
+    <link itemprop="mainEntityOfPage" href="http://yswape.com/mysql-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yswape">
@@ -395,62 +395,37 @@
 <li>写入bin log 提交事务，处于commit状态</li>
 </ul>
 <h4 id="为什么两段提交？"><a href="#为什么两段提交？" class="headerlink" title="为什么两段提交？"></a>为什么两段提交？</h4><p>使得bin log与 redo log一致<br>redo log: 少一条的话，更新数据库重启的恢复<br>bin log: 影响数据库备份的数据</p>
-<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><ul>
-<li><ol>
-<li>事务特性: (ACID)  原子性、一致性、隔离性、持久性</li>
-</ol>
-</li>
-<li><ol start="2">
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><ol>
+<li>事务特性: (ACID)  原子性(undo log 回滚)、一致性(两个操作数据一致性)、隔离性、持久性(修改不因数据库重启而丢失，redo log)</li>
 <li>多事务同时执行，可能出现的问题: 脏读、不可重复读、幻读</li>
-</ol>
-</li>
-<li><ol start="3">
 <li>事务隔离级别(多个事务执行间的问题): 读未提交、读提交、可重复读、串行化</li>
-</ol>
-</li>
-<li><ol start="4">
-<li>不同隔离级别的区别: </li>
-</ol>
-<ul>
-<li><strong>读未提交</strong>: 一个事务还未提交，他所做的修改可以被其他事务看到(没有视图概念)</li>
-<li><strong>读提交</strong>: 一个事务提交以后，他所做的修改才可以被其他事务看到(每个语句执行时创建的视图)</li>
-<li><strong>可重复读</strong>: 一个事务执行过程看到的数据是一致的(视图实现),未提交的更改对其他事务不可见。(事务启动时创建视图实现)</li>
-<li><strong>串行化</strong>: 对应一个记录加读写锁，出现冲突时，后访问的事务必须等前一个事务执行完成才能继续执行(加锁实现)</li>
+<li>不同隔离级别的区别: <ul>
+<li><strong>读未提交</strong>: 一个事务还未提交，他所做的修改可以被其他事务看到(没有视图概念，没解决任何并发问题)</li>
+<li><strong>读提交</strong>: 一个事务提交以后，他所做的修改才可以被其他事务看到(每个语句执行时创建的视图，解决了脏读问题)</li>
+<li><strong>可重复读</strong>: 一个事务执行过程看到的数据是一致的(视图实现),未提交的更改对其他事务不可见。(事务启动时创建视图实现，解决不可重复读问题)</li>
+<li><strong>串行化</strong>: 对应一个记录加读写锁，出现冲突时，后访问的事务必须等前一个事务执行完成才能继续执行(加锁实现，解决所有问题)</li>
 </ul>
 </li>
-<li><ol start="5">
 <li>配置方法: 启动参数transaction-isolation</li>
-</ol>
-</li>
-<li><ol start="6">
 <li>事务隔离的实现: 每条记录更新时都同时记录一个回滚操作，同一条记录在系统中可以存在多个版本，这就是数据库的多版本并发控制(MVCC)</li>
-</ol>
-</li>
-<li><ol start="7">
 <li>回滚日志什么时候删除: 系统判断当没有事务需要用到这些回滚日志的时候，回滚日志会被删除</li>
-</ol>
-</li>
-<li><ol start="8">
 <li>什么时候不需要了？当系统没有比这个回滚日志更早的read-view的时候</li>
-</ol>
-</li>
-<li><ol start="9">
 <li>为什么尽量不要使用长事务？长事务意味在系统里存在很老的事务视图，事务提交之前都会保存，导致占用大量存储空间，长事务还占用锁资源，可能拖垮库</li>
-</ol>
-</li>
-<li><ol start="10">
-<li>多事务同时执行可能出现的问题 <a href="https://uule.iteye.com/blog/1109647" target="_blank" rel="noopener">参考</a></li>
-</ol>
-<ul>
-<li><strong>脏读</strong>: 一个事务修改了数据还未提交，另一个事务读取并使用了这个数据。当第一个事务回滚，另一个事务使用的数据就是脏数据(发生在<code>读未提交</code>)</li>
-<li><strong>不可重复读</strong>: 一个事务内多次读同一个数据，两次读之间数据被另一个事务修改，导致这两次读到的数据不一致。</li>
-<li><strong>幻读</strong>: 事务1对所有数据行执行修改，同时事务2添加了一条数据。事务1发现自己并没有实现全部数据的修改，好像发生了幻觉。(解决: 一个事务完成了处理前，其他事务不可以插入数据)<blockquote>
+<li>多事务同时执行可能出现的问题 <a href="https://uule.iteye.com/blog/1109647" target="_blank" rel="noopener">参考</a><ul>
+<li><strong>脏读</strong>: 一个事务修改了数据还未提交，另一个事务读取并使用了这个数据。当第一个事务回滚，另一个事务使用的数据就是脏数据(发生在<code>读未提交</code>) （由于其他事务没有提交造成）</li>
+<li><strong>不可重复读</strong>: 一个事务内多次读同一个数据，两次读之间数据被另一个事务修改，导致这两次读到的数据不一致。（由于其他事务提交造成）</li>
+<li><strong>幻读</strong>: 事务1对所有数据行执行修改，同时事务2添加了一条数据。事务1发现自己并没有实现全部数据的修改，好像发生了幻觉。(解决: 一个事务完成了处理前，其他事务不可以插入数据) （需要插入）<blockquote>
 <p>mysql默认是可重复读，oracle默认是读提交</p>
 </blockquote>
 </li>
 </ul>
 </li>
-</ul>
+<li>“autocommit”为事务的自动提交，设置为”off”时需要手动，开启和提交事务<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">begin # 或 start Transaction</span><br><span class="line">update xxxx</span><br><span class="line">commit # rollback</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>事务结束的时候，所持有的锁会释放</p>
+</blockquote>
 <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h4 id="数据结构的考虑"><a href="#数据结构的考虑" class="headerlink" title="数据结构的考虑:"></a>数据结构的考虑:</h4><ul>
 <li>hash: <ul>
 <li>类似数组+链表，key的hash值确定在数组(桶)中的位置，出现hash冲突时，拉链。但这种对于范围查询不适用，需要全部扫描，比较适合<strong>等值查询</strong></li>
@@ -520,6 +495,15 @@
 <li>读写锁互斥，写写锁互斥，读读锁不互斥</li>
 <li>MDL会直到事务提交才会释放，在做表结构变更是，一定要小心不要导致阻塞线上查询和更新 </li>
 <li>表级锁限制只能当前线程的操作，比如，线程A执行lock t1 read,t2 write ，则其他线程写t1。读写t2都会被阻塞</li>
+<li>表锁分为：意向共享锁和意向排他锁，他们是一种锁的标志，为了使加表锁效率高，因为有存在任何行锁就不能加表锁，全表扫描有没有锁效率很低；这种意向锁是存在任何锁时，更新这个标志</li>
+</ul>
+<h4 id="共享锁（行锁）"><a href="#共享锁（行锁）" class="headerlink" title="共享锁（行锁）"></a>共享锁（行锁）</h4><ul>
+<li>又称为读锁，S锁，多个是事务对与同一数据共享一把锁，都只能访问到数据，只能读不能修改</li>
+<li>加锁释放锁方式:<br><code>select * from student where id =1 LOCK IN SHARE MODE</code><br><code>commit/rollback</code></li>
+</ul>
+<h4 id="排他锁-行锁"><a href="#排他锁-行锁" class="headerlink" title="排他锁(行锁)"></a>排他锁(行锁)</h4><ul>
+<li>又称为写锁，X锁，不能与其他锁并存，如一个事务获取了一个数据行的 排他锁，其他事务不能获取该行的锁(共享锁，排他锁)，只有获取了该排他锁的事务可以对数据行读和修改</li>
+<li>加锁释放锁方式L:<br>自动: <code>delete / update / insert 默认加X锁</code><br>手动: <code>select * from student where id=1 FOR UPDATE</code><br><code>commit / rollback</code></li>
 </ul>
 <h4 id="乐观锁与悲观锁-参考"><a href="#乐观锁与悲观锁-参考" class="headerlink" title="乐观锁与悲观锁 参考"></a>乐观锁与悲观锁 <a href="https://www.jianshu.com/p/f5ff017db62a" target="_blank" rel="noopener">参考</a></h4><ul>
 <li>悲观锁: 假设一定会发生冲突，所以每次拿数据之前都要加锁 (select for update 锁定当前行)</li>
@@ -529,6 +513,16 @@
 </ul>
 </li>
 </ul>
+<blockquote>
+<p>悲观锁和乐观锁是用法，而不是划分的锁类型</p>
+</blockquote>
+<h4 id="锁住了什么，行数据-列？"><a href="#锁住了什么，行数据-列？" class="headerlink" title="锁住了什么，行数据 / 列？"></a>锁住了什么，行数据 / 列？</h4><ol>
+<li>没有用到索引时，排他锁，直接锁表，为什么？<br>没有创建索引时，存在一个默认索引，扫描索引就所住了整张表</li>
+<li>锁住的是索引</li>
+<li>记录锁锁住的是该记录，where id = 4, 锁住的是id=4那一条记录(唯一性索引，等值查询，精确匹配)</li>
+<li>间隙锁(只在可重复读隔离级别中)，左开右开区间，比如1，4，7，10 。(-,1),(1,4),(4,7)…<br>对于等值查询没有命中和范围查询，锁住对应的范围；间隙锁间不互斥</li>
+<li>临键锁，左开右闭区间</li>
+</ol>
 <h2 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h2><h3 id="分表"><a href="#分表" class="headerlink" title="分表"></a>分表</h3><ul>
 <li>单表数据量太大，影响sql执行性能</li>
 </ul>
@@ -746,7 +740,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql基础架构"><span class="nav-number">1.</span> <span class="nav-text">mysql基础架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志系统"><span class="nav-number">2.</span> <span class="nav-text">日志系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redo-log-innoDB特有"><span class="nav-number">2.1.</span> <span class="nav-text">redo log(innoDB特有)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binlog-归档日志"><span class="nav-number">2.2.</span> <span class="nav-text">binlog(归档日志)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两段提交"><span class="nav-number">2.2.1.</span> <span class="nav-text">两段提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么两段提交？"><span class="nav-number">2.2.2.</span> <span class="nav-text">为什么两段提交？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">3.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构的考虑"><span class="nav-number">4.0.1.</span> <span class="nav-text">数据结构的考虑:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引字段问题"><span class="nav-number">4.0.2.</span> <span class="nav-text">索引字段问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#死锁"><span class="nav-number">4.0.3.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些索引"><span class="nav-number">4.0.4.</span> <span class="nav-text">一些索引</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#全局锁、表级锁、行级锁"><span class="nav-number">5.</span> <span class="nav-text">全局锁、表级锁、行级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局锁"><span class="nav-number">5.0.1.</span> <span class="nav-text">全局锁:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表级锁"><span class="nav-number">5.0.2.</span> <span class="nav-text">表级锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观锁与悲观锁-参考"><span class="nav-number">5.0.3.</span> <span class="nav-text">乐观锁与悲观锁 参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分库分表"><span class="nav-number">6.</span> <span class="nav-text">分库分表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分表"><span class="nav-number">6.1.</span> <span class="nav-text">分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分库"><span class="nav-number">6.2.</span> <span class="nav-text">分库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件推荐"><span class="nav-number">6.3.</span> <span class="nav-text">中间件推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平拆分与垂直拆分"><span class="nav-number">6.4.</span> <span class="nav-text">水平拆分与垂直拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种分库分表方式"><span class="nav-number">6.5.</span> <span class="nav-text">两种分库分表方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">7.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从同步延迟问题"><span class="nav-number">8.</span> <span class="nav-text">主从同步延迟问题</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql基础架构"><span class="nav-number">1.</span> <span class="nav-text">mysql基础架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志系统"><span class="nav-number">2.</span> <span class="nav-text">日志系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redo-log-innoDB特有"><span class="nav-number">2.1.</span> <span class="nav-text">redo log(innoDB特有)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binlog-归档日志"><span class="nav-number">2.2.</span> <span class="nav-text">binlog(归档日志)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两段提交"><span class="nav-number">2.2.1.</span> <span class="nav-text">两段提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么两段提交？"><span class="nav-number">2.2.2.</span> <span class="nav-text">为什么两段提交？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">3.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构的考虑"><span class="nav-number">4.0.1.</span> <span class="nav-text">数据结构的考虑:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引字段问题"><span class="nav-number">4.0.2.</span> <span class="nav-text">索引字段问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#死锁"><span class="nav-number">4.0.3.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些索引"><span class="nav-number">4.0.4.</span> <span class="nav-text">一些索引</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#全局锁、表级锁、行级锁"><span class="nav-number">5.</span> <span class="nav-text">全局锁、表级锁、行级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局锁"><span class="nav-number">5.0.1.</span> <span class="nav-text">全局锁:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表级锁"><span class="nav-number">5.0.2.</span> <span class="nav-text">表级锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享锁（行锁）"><span class="nav-number">5.0.3.</span> <span class="nav-text">共享锁（行锁）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排他锁-行锁"><span class="nav-number">5.0.4.</span> <span class="nav-text">排他锁(行锁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观锁与悲观锁-参考"><span class="nav-number">5.0.5.</span> <span class="nav-text">乐观锁与悲观锁 参考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁住了什么，行数据-列？"><span class="nav-number">5.0.6.</span> <span class="nav-text">锁住了什么，行数据 / 列？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分库分表"><span class="nav-number">6.</span> <span class="nav-text">分库分表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分表"><span class="nav-number">6.1.</span> <span class="nav-text">分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分库"><span class="nav-number">6.2.</span> <span class="nav-text">分库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件推荐"><span class="nav-number">6.3.</span> <span class="nav-text">中间件推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平拆分与垂直拆分"><span class="nav-number">6.4.</span> <span class="nav-text">水平拆分与垂直拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种分库分表方式"><span class="nav-number">6.5.</span> <span class="nav-text">两种分库分表方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">7.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从同步延迟问题"><span class="nav-number">8.</span> <span class="nav-text">主从同步延迟问题</span></a></li></div>
             
 
           </div>
