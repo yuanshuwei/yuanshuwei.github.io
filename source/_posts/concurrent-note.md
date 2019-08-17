@@ -22,7 +22,7 @@ categories:
     	- `synchronized` 是悲观锁，假设一定会发生冲突，直接加锁操作，比较重； `CAS` 是 乐观锁，假设不会发生冲突，当大声冲突时，进行重试操作； ReenterLock内部的AQS，还是各种Atomic开头的原子类，内部都应用到了CAS
     	- 缺点：ABA问题， 用`AtomicStampedReference`, 它可以通过控制变量值的版本来保证CAS的正确性。/ `循环时间长开销大`
 - [AQS](https://juejin.im/entry/5ae02a7c6fb9a07ac76e7b70)
-    	- 即队列同步器。它是构建锁或者其他同步组件的基础框架（如ReentrantLock、ReentrantReadWriteLock、Semaphore等） 
+    - 即队列同步器。它是构建锁或者其他同步组件的基础框架（如ReentrantLock、ReentrantReadWriteLock、Semaphore等） 
     - 偏向锁:加锁偏向经常分配到的那个线程
     - ReentrantLock（公平锁\非公平锁两种实现)
 	- 线程池分类，关键参数设置
