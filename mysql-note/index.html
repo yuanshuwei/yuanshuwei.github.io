@@ -88,7 +88,7 @@
 <meta property="og:description" content="mysql笔记">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yswape.com/images/mysql-construct.png">
-<meta property="og:updated_time" content="2019-08-13T09:39:23.161Z">
+<meta property="og:updated_time" content="2019-08-19T13:29:05.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql笔记">
 <meta name="twitter:description" content="mysql笔记">
@@ -427,19 +427,15 @@
 <p>事务结束的时候，所持有的锁会释放</p>
 </blockquote>
 <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h4 id="数据结构的考虑"><a href="#数据结构的考虑" class="headerlink" title="数据结构的考虑:"></a>数据结构的考虑:</h4><ul>
-<li>hash: <ul>
-<li>类似数组+链表，key的hash值确定在数组(桶)中的位置，出现hash冲突时，拉链。但这种对于范围查询不适用，需要全部扫描，比较适合<strong>等值查询</strong></li>
-</ul>
-</li>
-<li>有序数组: <ul>
-<li>查询利用二分查询,时间复杂度是O(log(N)); 也适用范围查询。但插入元素，需要移动后面的全部元素，效率很低。<strong>适合静态存储引擎，不会修改数据了</strong></li>
-</ul>
-</li>
+<li>哈希表:<br>类似数组+链表，key的hash值确定在数组(桶)中的位置，出现hash冲突时，拉链。但这种对于范围查询不适用，需要全部扫描，比较适合<strong>等值查询</strong></li>
+<li>有序数组:<br>查询利用二分查询,时间复杂度是O(log(N)); 也适用范围查询。但插入元素，需要移动后面的全部元素，效率很低。<strong>适合静态存储引擎，不会修改数据了</strong></li>
 <li>二叉树: <ul>
 <li>特点是，每个节点的左二子小于这个节点，右二子大于当前节点；这样查询的效率是O(log(N)),为了维持这个查询复杂度，需要保持这棵树是平衡二叉树，所以更新时间复杂度也是O(log(N))。</li>
 <li>实际索引使用的是多叉树(一个树有多个节点),原因是索引需要写磁盘，尽量要减少数据块的寻址，让树高小一点。 N叉树的N取决于数据块的大小。</li>
 </ul>
 </li>
+<li><a href="https://juejin.im/post/57fa935b0e3dd90057c50fbc" target="_blank" rel="noopener">跳表</a>:<br>redis中用于代替平衡树的结构，插入/删除/搜索都是O(log(n))。一种双向链表的发展，多层指向下一节点的指针。</li>
+<li><a href="https://juejin.im/post/5bbbf7615188255c59672125" target="_blank" rel="noopener">LSM</a>:<br>相比下，B+树是随机磁盘访问，比顺序读写要慢。LSM顺序写，牺牲了一些读性能</li>
 </ul>
 <h4 id="索引字段问题"><a href="#索引字段问题" class="headerlink" title="索引字段问题"></a>索引字段问题</h4><ul>
 <li>主键索引(聚簇索引，叶子节点存的是整行数据)、非主键索引(二级索引，叶子节点存的是主键，所以还需要再查询一次主键索引的树)；<strong>我们应尽量使用主键查询</strong>。</li>
@@ -449,7 +445,18 @@
 </blockquote>
 </li>
 </ul>
-<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>持有对方需要的锁，并请求对应资源。解决: 执行死锁的回滚事务。对于InnoDB将持有最少行级排他锁的事务回滚</p>
+<h4 id="自增主键的选择"><a href="#自增主键的选择" class="headerlink" title="自增主键的选择"></a>自增主键的选择</h4><ul>
+<li>选择的场景:<ul>
+<li><strong>性能</strong>: 保持B+树的有序性，自增可减少页分裂和合并。</li>
+<li><strong>空间</strong>: 比如和身份证号做主键相比，因为非主键索引存的值是主键，主键较大，会比较占用存储空间。</li>
+</ul>
+</li>
+<li>不选择的场景:<br>直接使用业务字段来作为主键: 只有一个索引且必须是唯一索引。</li>
+</ul>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><ul>
+<li>事务A是有行1的锁，去申请行2的锁；事务B持有行2的锁，去申请行1的锁</li>
+<li>持有对方需要的锁，并请求对应资源。解决: 执行死锁的回滚事务。对于InnoDB将持有最少行级排他锁的事务回滚</li>
+</ul>
 <h4 id="一些索引"><a href="#一些索引" class="headerlink" title="一些索引"></a>一些索引</h4><ul>
 <li>覆盖索引: 如果查询条件使用的是普通索引(或者是联合索引的最左原则)，查询结果是联合索引的字段或主键，不用回表，直接返回结果，减少IO磁盘读写读取正行数据。</li>
 <li>最左前缀: 联合索引的最左N个字段，也可以是字符串索引的最左M个字符。</li>
@@ -472,6 +479,13 @@
 </li>
 </ul>
 </li>
+</ul>
+<h4 id="哪些方式无法应用到索引-参考"><a href="#哪些方式无法应用到索引-参考" class="headerlink" title="哪些方式无法应用到索引 参考"></a>哪些方式无法应用到索引 <a href="https://www.cnblogs.com/wujianchao1988/archive/2012/05/16/2504221.html" target="_blank" rel="noopener">参考</a></h4><ul>
+<li>①函数  </li>
+<li>②非左匹配 <code>like &#39;%5400%&#39;</code>; <code>like &#39;5400%&#39;</code>是可以的</li>
+<li>③in , not in</li>
+<li>④&gt;, &lt;, is null, is not null</li>
+<li>⑤UNION</li>
 </ul>
 <h2 id="全局锁、表级锁、行级锁"><a href="#全局锁、表级锁、行级锁" class="headerlink" title="全局锁、表级锁、行级锁"></a>全局锁、表级锁、行级锁</h2><h4 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁:"></a>全局锁:</h4><ul>
 <li>读整个数据库实例加锁。</li>
@@ -548,7 +562,6 @@
 <h2 id="主从同步延迟问题"><a href="#主从同步延迟问题" class="headerlink" title="主从同步延迟问题"></a>主从同步延迟问题</h2><ul>
 <li>分库，降低主库的并发</li>
 <li>重写代码，尽量不要写完马上查询</li>
-<li></li>
 </ul>
 
       
@@ -669,7 +682,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -740,7 +753,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql基础架构"><span class="nav-number">1.</span> <span class="nav-text">mysql基础架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志系统"><span class="nav-number">2.</span> <span class="nav-text">日志系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redo-log-innoDB特有"><span class="nav-number">2.1.</span> <span class="nav-text">redo log(innoDB特有)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binlog-归档日志"><span class="nav-number">2.2.</span> <span class="nav-text">binlog(归档日志)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两段提交"><span class="nav-number">2.2.1.</span> <span class="nav-text">两段提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么两段提交？"><span class="nav-number">2.2.2.</span> <span class="nav-text">为什么两段提交？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">3.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构的考虑"><span class="nav-number">4.0.1.</span> <span class="nav-text">数据结构的考虑:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引字段问题"><span class="nav-number">4.0.2.</span> <span class="nav-text">索引字段问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#死锁"><span class="nav-number">4.0.3.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些索引"><span class="nav-number">4.0.4.</span> <span class="nav-text">一些索引</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#全局锁、表级锁、行级锁"><span class="nav-number">5.</span> <span class="nav-text">全局锁、表级锁、行级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局锁"><span class="nav-number">5.0.1.</span> <span class="nav-text">全局锁:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表级锁"><span class="nav-number">5.0.2.</span> <span class="nav-text">表级锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享锁（行锁）"><span class="nav-number">5.0.3.</span> <span class="nav-text">共享锁（行锁）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排他锁-行锁"><span class="nav-number">5.0.4.</span> <span class="nav-text">排他锁(行锁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观锁与悲观锁-参考"><span class="nav-number">5.0.5.</span> <span class="nav-text">乐观锁与悲观锁 参考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁住了什么，行数据-列？"><span class="nav-number">5.0.6.</span> <span class="nav-text">锁住了什么，行数据 / 列？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分库分表"><span class="nav-number">6.</span> <span class="nav-text">分库分表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分表"><span class="nav-number">6.1.</span> <span class="nav-text">分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分库"><span class="nav-number">6.2.</span> <span class="nav-text">分库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件推荐"><span class="nav-number">6.3.</span> <span class="nav-text">中间件推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平拆分与垂直拆分"><span class="nav-number">6.4.</span> <span class="nav-text">水平拆分与垂直拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种分库分表方式"><span class="nav-number">6.5.</span> <span class="nav-text">两种分库分表方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">7.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从同步延迟问题"><span class="nav-number">8.</span> <span class="nav-text">主从同步延迟问题</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql基础架构"><span class="nav-number">1.</span> <span class="nav-text">mysql基础架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志系统"><span class="nav-number">2.</span> <span class="nav-text">日志系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redo-log-innoDB特有"><span class="nav-number">2.1.</span> <span class="nav-text">redo log(innoDB特有)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binlog-归档日志"><span class="nav-number">2.2.</span> <span class="nav-text">binlog(归档日志)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两段提交"><span class="nav-number">2.2.1.</span> <span class="nav-text">两段提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么两段提交？"><span class="nav-number">2.2.2.</span> <span class="nav-text">为什么两段提交？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">3.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构的考虑"><span class="nav-number">4.0.1.</span> <span class="nav-text">数据结构的考虑:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引字段问题"><span class="nav-number">4.0.2.</span> <span class="nav-text">索引字段问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自增主键的选择"><span class="nav-number">4.0.3.</span> <span class="nav-text">自增主键的选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#死锁"><span class="nav-number">4.0.4.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些索引"><span class="nav-number">4.0.5.</span> <span class="nav-text">一些索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哪些方式无法应用到索引-参考"><span class="nav-number">4.0.6.</span> <span class="nav-text">哪些方式无法应用到索引 参考</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#全局锁、表级锁、行级锁"><span class="nav-number">5.</span> <span class="nav-text">全局锁、表级锁、行级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局锁"><span class="nav-number">5.0.1.</span> <span class="nav-text">全局锁:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表级锁"><span class="nav-number">5.0.2.</span> <span class="nav-text">表级锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享锁（行锁）"><span class="nav-number">5.0.3.</span> <span class="nav-text">共享锁（行锁）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排他锁-行锁"><span class="nav-number">5.0.4.</span> <span class="nav-text">排他锁(行锁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观锁与悲观锁-参考"><span class="nav-number">5.0.5.</span> <span class="nav-text">乐观锁与悲观锁 参考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁住了什么，行数据-列？"><span class="nav-number">5.0.6.</span> <span class="nav-text">锁住了什么，行数据 / 列？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分库分表"><span class="nav-number">6.</span> <span class="nav-text">分库分表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分表"><span class="nav-number">6.1.</span> <span class="nav-text">分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分库"><span class="nav-number">6.2.</span> <span class="nav-text">分库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件推荐"><span class="nav-number">6.3.</span> <span class="nav-text">中间件推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平拆分与垂直拆分"><span class="nav-number">6.4.</span> <span class="nav-text">水平拆分与垂直拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种分库分表方式"><span class="nav-number">6.5.</span> <span class="nav-text">两种分库分表方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">7.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从同步延迟问题"><span class="nav-number">8.</span> <span class="nav-text">主从同步延迟问题</span></a></li></div>
             
 
           </div>
