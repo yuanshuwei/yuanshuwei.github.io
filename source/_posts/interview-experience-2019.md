@@ -12,32 +12,35 @@ categories:
 > [另一份](/images/58-interview.png)
 
 - 微服务
-  - 谈谈你理解的微服务
+  - 谈谈你理解的微服务 [什么是微服务](https://www.cnblogs.com/hongxf1990/p/6491014.html)---[微服务的来龙去脉](https://www.cnblogs.com/wangiqngpei557/p/6936136.html)---[什么是微服务架构](https://www.zhihu.com/question/65502802)
   - 服务的划分依据
-  - 一次dubbo的完整调用过程
+  - 一次dubbo的完整调用过程 [1](https://www.cnblogs.com/aspirant/p/9002663.html) -- [2](https://www.jishuwen.com/d/2Hpf)
 - mysql
-  - 千万级别的数据，数据库需要考虑什么
-  - 数据库分库分表需要注意什么
-  - 索引需要考虑什么
+  - 千万级别的数据，数据库需要考虑什么 [1](https://www.zhihu.com/question/19719997) --- [2](https://www.cnblogs.com/yycc/p/7518240.html)
+  - 数据库分库分表需要注意什么 [1](https://www.infoq.cn/article/key-steps-and-likely-problems-of-split-table)--- [2](https://database.51cto.com/art/201809/583857.htm)
+  - [索引需要考虑什么](https://yezhwi.github.io/java/2018/04/08/MySQL%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/)
   - 最左原则
-  - 说说B+树和B树
+  - [说说B+树和B树](https://www.cnblogs.com/ivictor/p/5849061.html)
   - 讲讲幻读和不可重复读
   - 讲讲数据库的乐观锁和悲观锁
 - redis
-  - redis持久化
+  - [redis持久化](https://segmentfault.com/a/1190000002906345)
 - 队列
-  - kafka为什么比mq快
+  - kafka为什么比mq快--[kafka为什么那么快](https://www.cnblogs.com/duanxz/p/4705164.html)
+    - 生产者: 顺序写入、内存映射文件(同步或异步更新到磁盘)
+    - 消费者: 全部以文件方式发送到消费者
 - zookeeper
-  - 分布式锁
-  - zookeeper选举策略，双数节点可以选举成功吗
+  - [分布式锁](https://www.cnblogs.com/garfieldcgf/p/6380816.html)
+  - [zookeeper选举策略，双数节点可以选举成功吗](https://www.cnblogs.com/ASPNET2008/p/6421571.html)
 - HashMap
-  - HashMap结构，为什么是数量是8转为红黑树
-  - 说说红黑树
+  - HashMap结构，为什么是数量是8转为红黑树(总结)
+  - [说说红黑树](https://www.cnblogs.com/skywang12345/p/3245399.html)
   - 怎么保证HashMap线程安全
 - 线程
-  - 线程生命周期，什么时候发生线程状态变为死亡
+  - 线程生命周期，什么时候发生线程状态变为死亡--[线程的生命周期](https://www.cnblogs.com/sunddenly/p/4106562.html)
   - 讲讲CAS和AQS
-  - ThreadLocal结构，与线程池一起使用会有什么问题吗？
+  - [ThreadLocal结构，与线程池一起使用会有什么问题吗？](https://www.cnblogs.com/qifenghao/p/8977378.html)
+    - 线程池中的线程在任务执行完成后会被复用，所以在线程执行完成时，要对 ThreadLocal 进行清理（清除掉与本线程相关联的 value 对象）。不然，被复用的线程去执行新的任务时会使用被上一个线程操作过的 value 对象，从而产生不符合预期的结果。
 - jvm
   - 讲讲你熟悉的GC收集器，特点，你们用的哪个
   - jvm调优怎么做
@@ -65,9 +68,9 @@ categories:
   - redis 雪崩　击穿
 - jvm
   - 内存划分
-  - 新建对象放在哪里
-  - G1收集器
-  - 增加吞吐量需要怎么设置参数
+  - 新建对象放在哪里 (堆和栈)
+  - [G1收集器](https://zhuanlan.zhihu.com/p/52841787)
+  - 增加吞吐量需要怎么设置参数 [jvm调优](https://zhuanlan.zhihu.com/p/57014847)
 - 优化分析
   - 接口变慢可能是什么原因？怎么优化?
   - dubbo的限流
@@ -154,3 +157,13 @@ sleep和wait的区别
 synchronized用在不同方法的情况  
 分布式锁  
 讲讲你熟悉的框架，技术    
+
+马蜂窝
+---
+- 字节码加载到卸载的全过程
+- 新生代不够的情况，对象怎么分配
+- 现在jvm内存设置的多少
+- 业务的并发量(吞吐量)
+- 并发用到过哪些地方
+- mysql的索引 B与B+树
+- 聚簇索引和非聚簇索引
