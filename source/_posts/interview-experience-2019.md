@@ -14,10 +14,10 @@ categories:
 - 微服务
   - 谈谈你理解的微服务 [什么是微服务](https://www.cnblogs.com/hongxf1990/p/6491014.html)---[微服务的来龙去脉](https://www.cnblogs.com/wangiqngpei557/p/6936136.html)---[什么是微服务架构](https://www.zhihu.com/question/65502802)
   - 服务的划分依据
-  - 一次dubbo的完整调用过程 [1](https://www.cnblogs.com/aspirant/p/9002663.html) -- [2](https://www.jishuwen.com/d/2Hpf)
+  - 一次dubbo的完整调用过程 [[1]](https://www.cnblogs.com/aspirant/p/9002663.html) -- [[2]](https://www.jishuwen.com/d/2Hpf)
 - mysql
-  - 千万级别的数据，数据库需要考虑什么 [1](https://www.zhihu.com/question/19719997) --- [2](https://www.cnblogs.com/yycc/p/7518240.html)
-  - 数据库分库分表需要注意什么 [1](https://www.infoq.cn/article/key-steps-and-likely-problems-of-split-table)--- [2](https://database.51cto.com/art/201809/583857.htm)
+  - 千万级别的数据，数据库需要考虑什么 [[1]](https://www.zhihu.com/question/19719997) --- [[2]](https://www.cnblogs.com/yycc/p/7518240.html)
+  - 数据库分库分表需要注意什么 [[1]](https://www.infoq.cn/article/key-steps-and-likely-problems-of-split-table)--- [[2]](https://database.51cto.com/art/201809/583857.htm)
   - [索引需要考虑什么](https://yezhwi.github.io/java/2018/04/08/MySQL%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/)
   - 最左原则
   - [说说B+树和B树](https://www.cnblogs.com/ivictor/p/5849061.html)
