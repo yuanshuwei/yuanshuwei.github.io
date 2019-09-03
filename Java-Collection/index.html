@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="整体总结概述各集合特点，底层数据结构">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T09:17:49.069Z">
+<meta property="og:updated_time" content="2019-09-03T01:45:28.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合总述">
 <meta name="twitter:description" content="整体总结概述各集合特点，底层数据结构">
@@ -377,22 +377,22 @@
 <h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><ul>
 <li>Collection<ul>
 <li><strong>List</strong><ul>
-<li><code>ArrayList</code>:<br>Object数组实现，每次扩容为原来的1.5倍；非线程安全；</li>
+<li><code>* ArrayList</code>:<br>Object数组实现，每次扩容为原来的1.5倍；非线程安全；</li>
 <li><code>Vector</code> :<br>Object数组实现，相对ArrayList，用synchronized关键字加锁，实现线程安全；</li>
-<li><code>LinkedList</code>:<br>双向循环链表；非线程安全；</li>
+<li><code>* LinkedList</code>:<br>双向循环链表；非线程安全；</li>
 </ul>
 </li>
 <li><strong>Map</strong><ul>
-<li><code>HashMap</code>:<br>存储&lt;K,V&gt;对象，用K计算的hash值匹配到bucket，K.equals()定位具体的&lt;K,V&gt;对象来找到value；负载因子0.75，也就是说容量达到75%时扩容，初始16，每次扩容变为原来的2倍。</li>
+<li><code>* HashMap</code>:<br>存储&lt;K,V&gt;对象，用K计算的hash值匹配到bucket，K.equals()定位具体的&lt;K,V&gt;对象来找到value；负载因子0.75，也就是说容量达到75%时扩容，初始16，每次扩容变为原来的2倍。</li>
 <li><code>Hashtable</code>:<br>遗留类，基本被淘汰，放入null会报错。它是在HashMap基础加了synchronized关键字，所以并发性不好；替代的推荐用ConcurrentHashMap</li>
-<li><code>LinkedHashMap</code>:<br>HashMap的一个子类；链表实现</li>
-<li><code>TreeMap</code>：<br>TreeMap实现SortedMap接口，保存的是按key排序的，默认是按key升序排序，也可以指定排序；</li>
-<li><code>ConcurrentHashMap</code>:<br>JDK1.8 中取消了Segment分段锁，采用CAS和synchronized来保证并发安全。数据结构跟HashMap1.8的结构类似，数组+链表/红黑二叉树。不允许键值null；</li>
+<li><code>* LinkedHashMap</code>:<br>HashMap的一个子类；链表实现</li>
+<li><code>* TreeMap</code>：<br>TreeMap实现SortedMap接口，保存的是按key排序的，默认是按key升序排序，也可以指定排序；红黑树</li>
+<li><code>* ConcurrentHashMap</code>:<br>JDK1.8 中取消了Segment分段锁，采用CAS和synchronized来保证并发安全。数据结构跟HashMap1.8的结构类似，数组+链表/红黑二叉树。不允许键值null；</li>
 </ul>
 </li>
 <li><strong>Set</strong> <ul>
-<li><code>HashSet</code>:<br>无序，唯一；基于 HashMap 实现的，底层采用 HashMap 来保存元素；判断对象重复的方式与HashMap判断K的hash然后equals一致；</li>
-<li><code>TreeSet</code>：<br>有序，唯一；红黑树</li>
+<li><code>* HashSet</code>:<br>无序，唯一；基于 HashMap 实现的，底层采用 HashMap 来保存元素；判断对象重复的方式与HashMap判断K的hash然后equals一致；</li>
+<li><code>* TreeSet</code>：<br>有序，唯一；红黑树。基于TreeSet</li>
 <li><code>LinkedHashSet</code>：<br>基于LinkedHashMap实现</li>
 </ul>
 </li>
@@ -406,13 +406,32 @@
 <li>允许键值为null；  </li>
 <li>非线程安全；如果需要满足线程安全，可以用 Collections.synchronizedMap()方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap。  </li>
 <li>JDK1.7前，以数组+链表的链表数组存储，数组是主体，链表是为了解决hash冲突的存在。存储的结构是&lt;K,V&gt;的实体，以K的hash值定位到bucket，发生hash冲突是通过K.equals()找到需要的实体部分。  </li>
-<li>JDK1.8，当链表长度&gt;8时，链表转换为红黑树，当链表长度&lt;6，红黑树转为链表。另外改进了hash计算方法，使得分布更加均匀</li>
+<li>JDK1.8，当链表长度&gt;8时，链表转换为红黑树，当链表长度&lt;6，红黑树转为链表。另外改进了hash计算方法，使得分布更加均匀(右移16位相异或，使得高位和低位的特征都存在，hash碰撞率低)</li>
+<li>负载因子过大，则链表过长；负载因子过小，则hash桶过多，空间复杂度过高</li>
 </ul>
 <h5 id="为什么HashMap长度是2的N次？"><a href="#为什么HashMap长度是2的N次？" class="headerlink" title="为什么HashMap长度是2的N次？"></a>为什么HashMap长度是2的N次？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这个算法实际就是取模，hash%length，计算机中直接求余效率不如位移运算，源码中做了优化hash&amp;(length-1)，</span><br><span class="line">hash%length==hash&amp;(length-1)的前提是length是2的n次方；</span><br><span class="line">为什么这样能均匀分布减少碰撞呢？2的n次方实际就是1后面n个0，2的n次方-1  实际就是n个1；</span><br><span class="line">例如长度为9时候，3&amp;(9-1)=0  2&amp;(9-1)=0 ，都在0上，碰撞了；</span><br><span class="line">例如长度为8时候，3&amp;(8-1)=3  2&amp;(8-1)=2 ，不同位置上，不碰撞；</span><br></pre></td></tr></table></figure>
+<h5 id="HashMap-put方法逻辑"><a href="#HashMap-put方法逻辑" class="headerlink" title="HashMap put方法逻辑"></a>HashMap put方法逻辑</h5><ul>
+<li>如果未初始化过，则初始化</li>
+<li>对key求hash，然后计算下标</li>
+<li>如果没有碰撞，直接放入桶中</li>
+<li>如果碰撞了，已链表方式链接到后面</li>
+<li>如果链表长度超过阈值，链表转为红黑树</li>
+<li>如果节点已存在就替换旧值</li>
+<li>如果桶满了就resize(扩容2倍后重排)</li>
+</ul>
 <h5 id="为什么8节点变为红黑树？"><a href="#为什么8节点变为红黑树？" class="headerlink" title="为什么8节点变为红黑树？"></a>为什么8节点变为红黑树？</h5><ul>
 <li><a href="https://blog.csdn.net/xingfei_work/article/details/79637878" target="_blank" rel="noopener">n/2与log(n)</a></li>
 <li><a href="https://www.javazhiyin.com/34651.html" target="_blank" rel="noopener">概率统计得到</a></li>
 </ul>
+<h4 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h4><p><a href="https://juejin.im/post/5ae75584f265da0b873a4810" target="_blank" rel="noopener">ConcurrentHashMap size方法</a></p>
+<h5 id="ConcurrentHashMap-put过程"><a href="#ConcurrentHashMap-put过程" class="headerlink" title="ConcurrentHashMap put过程"></a>ConcurrentHashMap put过程</h5><ol>
+<li>key和value任意为空，抛出异常</li>
+<li>计算key的hash值，遍历table数组</li>
+<li>table为null或空，调用initTable初始化</li>
+<li>为保证可见性，table数组取数据，CAS保证可见性和线程安全性</li>
+<li>若当前桶位hash值MOVED，说明正在扩容，则帮助迁移</li>
+<li>元素不止一个，synchronized给头节点加锁，链表或红黑树的插入节点</li>
+</ol>
 
       
     </div>
@@ -526,7 +545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -597,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构"><span class="nav-number">1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap分析"><span class="nav-number">2.</span> <span class="nav-text">HashMap分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么HashMap长度是2的N次？"><span class="nav-number">2.1.</span> <span class="nav-text">为什么HashMap长度是2的N次？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么8节点变为红黑树？"><span class="nav-number">2.2.</span> <span class="nav-text">为什么8节点变为红黑树？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构"><span class="nav-number">1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap分析"><span class="nav-number">2.</span> <span class="nav-text">HashMap分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么HashMap长度是2的N次？"><span class="nav-number">2.1.</span> <span class="nav-text">为什么HashMap长度是2的N次？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap-put方法逻辑"><span class="nav-number">2.2.</span> <span class="nav-text">HashMap put方法逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么8节点变为红黑树？"><span class="nav-number">2.3.</span> <span class="nav-text">为什么8节点变为红黑树？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">3.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ConcurrentHashMap-put过程"><span class="nav-number">3.1.</span> <span class="nav-text">ConcurrentHashMap put过程</span></a></li></ol></li></ol></div>
             
 
           </div>

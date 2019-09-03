@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="面经整理～～">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T10:29:55.103Z">
+<meta property="og:updated_time" content="2019-09-03T14:56:55.645Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019面经">
 <meta name="twitter:description" content="面经整理～～">
@@ -357,44 +357,51 @@
 </blockquote>
 <ul>
 <li>微服务<ul>
-<li>谈谈你理解的微服务</li>
+<li>谈谈你理解的微服务 <a href="https://www.cnblogs.com/hongxf1990/p/6491014.html" target="_blank" rel="noopener">什么是微服务</a>—<a href="https://www.cnblogs.com/wangiqngpei557/p/6936136.html" target="_blank" rel="noopener">微服务的来龙去脉</a>—<a href="https://www.zhihu.com/question/65502802" target="_blank" rel="noopener">什么是微服务架构</a></li>
 <li>服务的划分依据</li>
-<li>一次dubbo的完整调用过程</li>
+<li>一次dubbo的完整调用过程 <a href="https://www.cnblogs.com/aspirant/p/9002663.html" target="_blank" rel="noopener">1</a> – <a href="https://www.jishuwen.com/d/2Hpf" target="_blank" rel="noopener">2</a></li>
 </ul>
 </li>
 <li>mysql<ul>
-<li>千万级别的数据，数据库需要考虑什么</li>
-<li>数据库分库分表需要注意什么</li>
-<li>索引需要考虑什么</li>
+<li>千万级别的数据，数据库需要考虑什么 <a href="https://www.zhihu.com/question/19719997" target="_blank" rel="noopener">1</a> — <a href="https://www.cnblogs.com/yycc/p/7518240.html" target="_blank" rel="noopener">2</a></li>
+<li>数据库分库分表需要注意什么 <a href="https://www.infoq.cn/article/key-steps-and-likely-problems-of-split-table" target="_blank" rel="noopener">1</a>— <a href="https://database.51cto.com/art/201809/583857.htm" target="_blank" rel="noopener">2</a></li>
+<li><a href="https://yezhwi.github.io/java/2018/04/08/MySQL%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" target="_blank" rel="noopener">索引需要考虑什么</a></li>
 <li>最左原则</li>
-<li>说说B+树和B树</li>
+<li><a href="https://www.cnblogs.com/ivictor/p/5849061.html" target="_blank" rel="noopener">说说B+树和B树</a></li>
 <li>讲讲幻读和不可重复读</li>
 <li>讲讲数据库的乐观锁和悲观锁</li>
 </ul>
 </li>
 <li>redis<ul>
-<li>redis持久化</li>
+<li><a href="https://segmentfault.com/a/1190000002906345" target="_blank" rel="noopener">redis持久化</a></li>
 </ul>
 </li>
 <li>队列<ul>
-<li>kafka为什么比mq快</li>
+<li>kafka为什么比mq快–<a href="https://www.cnblogs.com/duanxz/p/4705164.html" target="_blank" rel="noopener">kafka为什么那么快</a><ul>
+<li>生产者: 顺序写入、内存映射文件(同步或异步更新到磁盘)</li>
+<li>消费者: 全部以文件方式发送到消费者</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>zookeeper<ul>
-<li>分布式锁</li>
-<li>zookeeper选举策略，双数节点可以选举成功吗</li>
+<li><a href="https://www.cnblogs.com/garfieldcgf/p/6380816.html" target="_blank" rel="noopener">分布式锁</a></li>
+<li><a href="https://www.cnblogs.com/ASPNET2008/p/6421571.html" target="_blank" rel="noopener">zookeeper选举策略，双数节点可以选举成功吗</a></li>
 </ul>
 </li>
 <li>HashMap<ul>
-<li>HashMap结构，为什么是数量是8转为红黑树</li>
-<li>说说红黑树</li>
+<li>HashMap结构，为什么是数量是8转为红黑树(总结)</li>
+<li><a href="https://www.cnblogs.com/skywang12345/p/3245399.html" target="_blank" rel="noopener">说说红黑树</a></li>
 <li>怎么保证HashMap线程安全</li>
 </ul>
 </li>
 <li>线程<ul>
-<li>线程生命周期，什么时候发生线程状态变为死亡</li>
+<li>线程生命周期，什么时候发生线程状态变为死亡–<a href="https://www.cnblogs.com/sunddenly/p/4106562.html" target="_blank" rel="noopener">线程的生命周期</a></li>
 <li>讲讲CAS和AQS</li>
-<li>ThreadLocal结构，与线程池一起使用会有什么问题吗？</li>
+<li><a href="https://www.cnblogs.com/qifenghao/p/8977378.html" target="_blank" rel="noopener">ThreadLocal结构，与线程池一起使用会有什么问题吗？</a><ul>
+<li>线程池中的线程在任务执行完成后会被复用，所以在线程执行完成时，要对 ThreadLocal 进行清理（清除掉与本线程相关联的 value 对象）。不然，被复用的线程去执行新的任务时会使用被上一个线程操作过的 value 对象，从而产生不符合预期的结果。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>jvm<ul>
@@ -430,9 +437,9 @@
 </li>
 <li>jvm<ul>
 <li>内存划分</li>
-<li>新建对象放在哪里</li>
-<li>G1收集器</li>
-<li>增加吞吐量需要怎么设置参数</li>
+<li>新建对象放在哪里 (堆和栈)</li>
+<li><a href="https://zhuanlan.zhihu.com/p/52841787" target="_blank" rel="noopener">G1收集器</a></li>
+<li>增加吞吐量需要怎么设置参数 <a href="https://zhuanlan.zhihu.com/p/57014847" target="_blank" rel="noopener">jvm调优</a></li>
 </ul>
 </li>
 <li>优化分析<ul>
@@ -495,6 +502,15 @@
 <li>懒加载单例</li>
 </ul>
 <p>java内存模型，垃圾回收策略，jvm调优(堆为什么也不能设置很大？)<br>Spring AOP, IOC原理？ JDK动态代理和cglib的区别？ Spring事务嵌套？<br>Mybatis如何防止SQL注入的<br>dubbo生产者和消费者与zk的流程，负载均衡是在哪配置的？<br>设计模式有哪些<br>事务的特性ACID<br>HashMap的存储结构，put的操作过程<br>sleep和wait的区别<br>synchronized用在不同方法的情况<br>分布式锁<br>讲讲你熟悉的框架，技术    </p>
+<h2 id="马蜂窝"><a href="#马蜂窝" class="headerlink" title="马蜂窝"></a>马蜂窝</h2><ul>
+<li>字节码加载到卸载的全过程</li>
+<li>新生代不够的情况，对象怎么分配</li>
+<li>现在jvm内存设置的多少</li>
+<li>业务的并发量(吞吐量)</li>
+<li>并发用到过哪些地方</li>
+<li>mysql的索引 B与B+树</li>
+<li>聚簇索引和非聚簇索引</li>
+</ul>
 
       
     </div>
@@ -608,7 +624,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -679,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#58金融"><span class="nav-number">1.</span> <span class="nav-text">58金融</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#瓜子"><span class="nav-number">2.</span> <span class="nav-text">瓜子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一轮"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一轮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二轮"><span class="nav-number">2.0.2.</span> <span class="nav-text">第二轮</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#洋钱罐"><span class="nav-number">3.</span> <span class="nav-text">洋钱罐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法手写"><span class="nav-number">3.0.1.</span> <span class="nav-text">算法手写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vipkid"><span class="nav-number">4.</span> <span class="nav-text">vipkid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转转"><span class="nav-number">5.</span> <span class="nav-text">转转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知乎"><span class="nav-number">6.</span> <span class="nav-text">知乎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新浪金融"><span class="nav-number">7.</span> <span class="nav-text">新浪金融</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#58金融"><span class="nav-number">1.</span> <span class="nav-text">58金融</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#瓜子"><span class="nav-number">2.</span> <span class="nav-text">瓜子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一轮"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一轮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二轮"><span class="nav-number">2.0.2.</span> <span class="nav-text">第二轮</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#洋钱罐"><span class="nav-number">3.</span> <span class="nav-text">洋钱罐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法手写"><span class="nav-number">3.0.1.</span> <span class="nav-text">算法手写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vipkid"><span class="nav-number">4.</span> <span class="nav-text">vipkid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转转"><span class="nav-number">5.</span> <span class="nav-text">转转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知乎"><span class="nav-number">6.</span> <span class="nav-text">知乎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新浪金融"><span class="nav-number">7.</span> <span class="nav-text">新浪金融</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马蜂窝"><span class="nav-number">8.</span> <span class="nav-text">马蜂窝</span></a></li></div>
             
 
           </div>

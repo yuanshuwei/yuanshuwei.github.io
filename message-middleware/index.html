@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="消息中间件面试常见问题, 整理自github">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T09:17:49.076Z">
+<meta property="og:updated_time" content="2019-09-03T13:47:44.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息中间件面试常见问题">
 <meta name="twitter:description" content="消息中间件面试常见问题, 整理自github">
@@ -387,11 +387,6 @@
 <li>Kafka，大数据实时计算，日志采集的业界标准</li>
 </ul>
 <h3 id="三、如何保证消息队列的高可用？"><a href="#三、如何保证消息队列的高可用？" class="headerlink" title="三、如何保证消息队列的高可用？"></a>三、如何保证消息队列的高可用？</h3><ul>
-<li>RabbitMQ, 基于主从<ul>
-<li>普通集群模式 (无高可用，数据只存在一台机器，消费时需要mq实例去实际存数据的mq拉取数据,一台那个实例机器挂了系统就挂了)</li>
-<li>镜像集群模式 (数据会在多个mq实例之间同步可实现高可用；但是queue的数量无法扩展，如果queue的数量大到机器无法承受，再加机器也是没用的)</li>
-</ul>
-</li>
 <li>Kafka,<ul>
 <li>架构认识：由多个Broker组成，创建一个topic可以划分为多个partition，每个partition存在不同的broker里。就是说每个topic的数据存在不同的机器中，3个partition就是3个机器中</li>
 <li>0.8以前，如果一个实例挂，就相当于topic丢了一部分数据。之后加入了replica副本，partition会存在副本；自动选举leader和follower；</li>
@@ -404,12 +399,6 @@
 <li>对于kafka，有一个offset概念，代表消息的序号，每隔一段时间消费者会把消费过的offset提交，表示已经消费过了，但异常情况来不及提交，会重复消费，所以需要我们开发自己来保证幂等性</li>
 </ul>
 <h3 id="五、如何保证可靠性、消息丢失？"><a href="#五、如何保证可靠性、消息丢失？" class="headerlink" title="五、如何保证可靠性、消息丢失？"></a>五、如何保证可靠性、消息丢失？</h3><ul>
-<li>RabbitMQ<ul>
-<li>生产者丢失数据: <code>confirm</code>模式,生产者设置开启confirm模式后，每次写消息会被分配一个全局唯一id，如果写入成功会返回ack，失败则回调`nack接口告诉你接收失败可以重试；过程是异步的</li>
-<li>MQ丢失数据: 数据持久化到本地，启动后数据读取之前存储的数据，极少数存在还未持久化MQ就已经挂了; 也可以与生产者ack关联，为持久化的消息重新发送</li>
-<li>消费者丢失数据: 刚消费到还没处理，进程就挂了；可以用ack，每次消费完成发送ack，否则MQ认为没有被消费</li>
-</ul>
-</li>
 <li>Kafka<ul>
 <li>消费端丢失: 消费了未处理，就自动提交了offset；此情况可以关闭自动提交，处理完成后才手动提交</li>
 <li>Kafka丢失: 某个Broker中leader挂了，还未来得及同步partition，进行了选举；所以配置一些参数:<ul>
@@ -438,9 +427,6 @@
 <li>数据零丢失: 之前的方案</li>
 <li><a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/mq-design.md" target="_blank" rel="noopener">这里</a> </li>
 </ul>
-<blockquote>
-<p><a href="https://www.jianshu.com/p/824066d70da8" target="_blank" rel="noopener">RocketMQ 实战之快速入门</a></p>
-</blockquote>
 
       
     </div>
@@ -560,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

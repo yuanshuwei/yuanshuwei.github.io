@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="面试中高级的一些准备提纲, 持续更新">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T16:17:05.479Z">
+<meta property="og:updated_time" content="2019-09-03T14:54:13.454Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试">
 <meta name="twitter:description" content="面试中高级的一些准备提纲, 持续更新">
@@ -382,24 +382,58 @@
 <ul>
 <li><a href="https://github.com/doocs/advanced-java" target="_blank" rel="noopener">高并发、分布式等，适合面试</a></li>
 <li><a href="https://github.com/Snailclimb/JavaGuide" target="_blank" rel="noopener">基础知识+算法题解、源码分析</a></li>
+<li><a href="https://www.cnblogs.com/swiftma/" target="_blank" rel="noopener">《Java编程的逻辑》系列博客</a></li>
 </ul>
-<h2 id="消息中间件"><a href="#消息中间件" class="headerlink" title="消息中间件"></a>消息中间件</h2><a href="/message-middleware/" title="消息中间件面试常见问题">消息中间件面试常见问题</a>
-<p><a href="https://www.cnblogs.com/duanxz/p/4705164.html" target="_blank" rel="noopener">kafka为什么那么快</a></p>
-<ul>
-<li>生产者: 顺序写入、内存映射文件(同步或异步更新到磁盘)</li>
-<li>消费者: 全部以文件方式发送到消费者<br>……</li>
+<h2 id="消息中间件"><a href="#消息中间件" class="headerlink" title="消息中间件"></a>消息中间件</h2><ul>
+<li><a href="/message-middleware/" title="消息中间件面试常见问题">消息中间件面试常见问题</a></li>
+<li><a href="https://www.cnblogs.com/ITtangtang/p/8026771.html" target="_blank" rel="noopener">kafka架构和基本原理</a></li>
+<li><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/system-design/data-communication/Kafka%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%BC%80%E7%AF%87-%E9%9D%A2%E8%AF%95%E7%9C%8B%E8%BF%99%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86.md" target="_blank" rel="noopener">kafka系统设计-面试</a></li>
 </ul>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><ul>
-<li>集合<ul>
-<li><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/HashMap.md" target="_blank" rel="noopener">HashMap底层</a></li>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><ul>
 <li><a href="/Java-Collection/" title="Java集合总述">Java集合总述</a></li>
+<li><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/HashMap.md" target="_blank" rel="noopener">HashMap底层</a></li>
+<li><a href="https://www.cnblogs.com/cutter-point/p/11396240.html" target="_blank" rel="noopener">HashMap源码</a></li>
+<li><a href="https://www.cnblogs.com/luozhiyun/p/11406557.html" target="_blank" rel="noopener">ConcurrentHashMap源码</a></li>
+<li><a href="https://www.cnblogs.com/xiaoxi/p/6170590.html" target="_blank" rel="noopener">LinkedHashMap</a></li>
+<li><a href="https://www.cnblogs.com/swiftma/p/5975943.html" target="_blank" rel="noopener">TreeMap</a></li>
+<li><a href="https://www.cnblogs.com/whgk/p/6114842.html" target="_blank" rel="noopener">HashSet</a></li>
+<li><a href="https://www.cnblogs.com/pony1223/p/7907173.html" target="_blank" rel="noopener">TreeSet</a></li>
+<li><a href="https://www.cnblogs.com/chenssy/p/3498468.html" target="_blank" rel="noopener">ArrayList</a></li>
+<li><a href="https://www.cnblogs.com/chenssy/p/3514524.html" target="_blank" rel="noopener">LinkedList</a></li>
+</ul>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><ul>
+<li><a href="https://www.cnblogs.com/sunddenly/p/4106562.html" target="_blank" rel="noopener">线程的生命周期</a></li>
+<li><a href="https://juejin.im/post/5b4eec7df265da0fa00a118f" target="_blank" rel="noopener">synchronized</a><ul>
+<li>底层是通过monitor(监视器锁)对象完成的，通过软件在jvm实现</li>
+<li>同步代码块是 <code>monitorenter</code> 和 <code>monitorexit</code>完成，同步方法是通过检查<code>ACC_SYNCHRONIZED</code>标识符是否被设置</li>
+<li>实现方式是jvm在底层调用操作系统的互斥原语mutex实现，被阻塞的线程会被挂起、等待重新调度，会导致“用户态和内核态”两个态之间来回切换，对性能有较大影响。</li>
+<li>其实wait/notify等方法也依赖于monitor对象</li>
 </ul>
 </li>
-<li>并发<ul>
-<li><a href="/concurrent-note/" title="并发笔记">并发笔记</a>
-</li>
+<li><a href="/threadlocal/" title="ThreadLocal源码分析">ThreadLocal源码分析</a> (重写)</li>
+<li><a href="https://www.cnblogs.com/paddix/p/5428507.html" target="_blank" rel="noopener">volatile原理</a><ul>
+<li>通过volatile修饰的变量可以保证线程之间的可见性，但并不能保证这多个指令的原子执行，在多线程并发执行下，无法做到线程安全，得到正确的结果</li>
+<li>可见性:①写变量时，强制刷新到主内存中②修改变量后，强制让其他线程的工作内存中的值失效</li>
+<li>顺序性:指令重排序，通过一组处理器指令，实现对内存操作的顺序限制(理解单例的懒加载的双重锁检查中的新建对象的三个过程)</li>
 </ul>
 </li>
+<li><a href="https://juejin.im/post/5a73cbbff265da4e807783f5" target="_blank" rel="noopener">CAS</a> / <a href="https://www.jianshu.com/p/fb6e91b013cc" target="_blank" rel="noopener">参考2</a><ul>
+<li>比较，如果原始值没有被修改过，则更新成新的目标值；如果这一步的CAS没有成功，那就采用自旋的方式继续进行CAS操作，取出乍一看这也是两个步骤了啊，其实在 <code>JNI</code> 里是借助于一个 <code>CPU指令</code> 完成的。所以还是原子操作。</li>
+<li><code>synchronized</code> 是悲观锁，假设一定会发生冲突，直接加锁操作，比较重； <code>CAS</code> 是 乐观锁，假设不会发生冲突，当大声冲突时，进行重试操作； ReenterLock内部的AQS，还是各种Atomic开头的原子类，内部都应用到了CAS</li>
+<li>缺点：ABA问题， 用<code>AtomicStampedReference</code>, 它可以通过控制变量值的版本来保证CAS的正确性。/ <code>循环时间长开销大</code></li>
+</ul>
+</li>
+<li><a href="https://www.cnblogs.com/waterystone/p/4920797.html" target="_blank" rel="noopener">AQS</a><br>即队列同步器。它是构建锁或者其他同步组件的基础框架(如ReentrantLock、ReentrantReadWriteLock、Semaphore等)</li>
+<li><a href="https://www.jianshu.com/p/bdac4e8a6839" target="_blank" rel="noopener">并发的几种实现方式</a><ul>
+<li>任务类实现Runnable接口，在方法Run()里定义任务。</li>
+<li>任务类继承Thread，重写run()方法。</li>
+<li>实现接口Callable并在call()方法里得到线程执行结果。</li>
+</ul>
+</li>
+<li><a href="https://www.cnblogs.com/dolphin0520/p/3932921.html" target="_blank" rel="noopener">线程池</a><br>比如coresize 1 maxsize 5　有界队列:<br>先判断当前空闲线程数和coresize的关系，如果超过coresize扔队列，队列满，判断maxsize满没满，没满创建thread,如果满了执行拒绝策略逻辑(jdk自带４种拒绝策略，也可以重写，只要实现RejectExecutionHandler类) </li>
+<li><a href="https://www.cnblogs.com/yysbolg/p/9239384.html" target="_blank" rel="noopener">有返回值的线程</a></li>
+<li><a href="https://www.cnblogs.com/dolphin0520/p/3932934.html" target="_blank" rel="noopener">多线程和并发基础面试题</a></li>
+<li><a href="https://www.cnblogs.com/juniorMa/p/5848705.html" target="_blank" rel="noopener">java concurrent包常用类小结</a></li>
 </ul>
 <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h4 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h4><ul>
 <li><a href="/mysql-note/" title="mysql笔记">mysql笔记</a></li>
@@ -412,17 +446,12 @@
 <li><a href="/redis-note/" title="redis笔记">redis笔记</a>
 </li>
 </ul>
-<h2 id="Jvm"><a href="#Jvm" class="headerlink" title="Jvm"></a>Jvm</h2><a href="/JVM/" title="JVM">JVM</a>
-<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><h5 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h5><ul>
-<li>与springcloud的区别-服务调用方式和关注点不同<ul>
-<li>dubbo服务间调用采用RPC，长连接，性能会更好</li>
-<li>支持多种序列化协议</li>
-<li>不支持跨语言，自己再包装一层REST服务，相对更麻烦；服务提供和消费者强依赖</li>
-<li>分布式配置、服务追踪等，需要借助其他框架，风险大</li>
-<li>而对于springcloud，社区很活跃，提供了整套的微服务解决方案，部署快，支持REST，跨语言，提供了docker支持</li>
-<li>选择的关注点：是否存在异构系统的集成问题；功能特性是否满足；http协议的通信是否会成为瓶颈点；springcloud也不是必须http+json也可配置；dubbo需要内部有一个维护的团队</li>
-</ul>
-</li>
+<h2 id="Jvm"><a href="#Jvm" class="headerlink" title="Jvm"></a>Jvm</h2><ul>
+<li><a href="/JVM/" title="JVM">JVM</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/57014847" target="_blank" rel="noopener">jvm调优1</a></li>
+<li><a href="https://cs.xieyonghui.com/java/java-jvm-performance_16.html" target="_blank" rel="noopener">jvm调优2</a></li>
+<li><a href="https://www.jianshu.com/p/2c4b091deaa3" target="_blank" rel="noopener">jvm调优3</a><h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><h5 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h5></li>
+<li><a href="https://www.cnblogs.com/cyl048/p/10416705.html" target="_blank" rel="noopener">与springcloud的区别</a></li>
 <li><p>灰度<br>当一个接口出现不兼容升级时，可以用版本号过渡，版本号不同的服务相互不调用，实现灰度发布,步骤如下:</p>
 <ol>
 <li>接口旧的实现定义version=”1.0.0”，接口新的实现version=”2.0.0”</li>
@@ -434,19 +463,21 @@
 <li>然后将剩下的一半提供者升级为新版本。</li>
 </ol>
 </li>
-<li>限流、降级(return null)</li>
+<li><a href="dubbo是如何控制并发数和限流的？">dubbo是如何控制并发数和限流的？</a></li>
+<li><a href="https://blog.csdn.net/cbhyk/article/details/86064725" target="_blank" rel="noopener">Dubbo令牌桶限流代码分析-StatItem类</a></li>
+<li><a href="https://www.cnblogs.com/libin6505/p/11270147.html" target="_blank" rel="noopener">dubbo服务降级</a></li>
 <li><a href="http://dubbo.apache.org/zh-cn/blog/sentinel-introduction-for-dubbo.html" target="_blank" rel="noopener">dubbo sentinel</a></li>
 <li><a href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html" target="_blank" rel="noopener">dubbo spi</a></li>
 <li>源码</li>
 <li><a href="https://juejin.im/search?query=%E8%82%A5%E6%9C%9D&amp;type=all" target="_blank" rel="noopener">掘金-肥朝</a></li>
 </ul>
-<h5 id="service-mesh-是什么"><a href="#service-mesh-是什么" class="headerlink" title="service mesh 是什么"></a>service mesh 是什么</h5><h5 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h5><ul>
+<h5 id="微服务架构基础之service-mesh"><a href="#微服务架构基础之service-mesh" class="headerlink" title="微服务架构基础之service mesh"></a><a href="https://www.cnblogs.com/tianyamoon/p/10106587.html" target="_blank" rel="noopener">微服务架构基础之service mesh</a></h5><h5 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h5><ul>
 <li><a href="/spring-ioc/" title="spring ioc aop">spring ioc aop</a></li>
 <li><a href="https://blog.csdn.net/qq_38182963/article/details/78795058" target="_blank" rel="noopener">spring扩展点</a></li>
 </ul>
 <h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
-<li>分布式事务</li>
-<li>分布式锁<ul>
+<li><a href="https://www.cnblogs.com/cjsblog/p/9837062.html" target="_blank" rel="noopener">分布式事务</a></li>
+<li><a href="https://www.cnblogs.com/garfieldcgf/p/6380816.html" target="_blank" rel="noopener">分布式锁</a><ul>
 <li>redis<br><code>SET resource_name my_random_value NX PX 30000</code><br>NX：表示只有 key 不存在的时候才会设置成功。（如果此时 redis 中存在这个 key，那么设置失败，返回 nil）;<br>PX 30000：意思是 30s 后锁自动释放。别人创建的时候如果发现已经有了就不能加锁了。<br>优化: RedLock 算法; 对于redis cluster，尝试在大多数节点上建立锁就算成功，删除的时候依次删除</li>
 <li>zookeeper<br>尝试创建临时znode节点，创建成功就获取到了这个锁；那么其他机器再去尝试创建znode节点会失败，只能注册个监听器监听这个锁。释放锁就是删除这个znode，一旦释放就会通知客户端，然后一个等待的客户端可以再次重新加锁</li>
 <li>redis需要不断尝试去获取锁，开销较大；zk获取不到锁时，注册个监听器即可</li>
@@ -460,9 +491,11 @@
 </ul>
 </li>
 <li>一致性hash</li>
+<li><a href="https://www.cnblogs.com/ASPNET2008/p/6421571.html" target="_blank" rel="noopener">zookeeper选举</a></li>
 </ul>
 <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
 <li>几大排序：描述和代码实现 <a href="https://github.com/ZhongFuCheng3y/3y/blob/master/src/sort.md" target="_blank" rel="noopener">参考</a></li>
+<li><a href="https://www.cnblogs.com/wxisme/p/5243631.html" target="_blank" rel="noopener">面试中的算法总结</a></li>
 <li><a href="https://juejin.im/post/5b55660ee51d4519202e2003" target="_blank" rel="noopener">快排实现</a>: 分治</li>
 <li><a href="https://www.jianshu.com/p/9e855ba2b079" target="_blank" rel="noopener">排序稳定性分析</a></li>
 <li><a href="https://juejin.im/post/5b15ff73e51d4506b113d956" target="_blank" rel="noopener">二分查找</a></li>
@@ -471,9 +504,10 @@
 <li><a href="https://dyygusi.iteye.com/blog/2162617" target="_blank" rel="noopener">深度和广度优先</a></li>
 <li><a href="https://www.jianshu.com/p/138ff21d9ede" target="_blank" rel="noopener">最长回文子串</a></li>
 <li><a href="https://blog.csdn.net/xjy9266/article/details/75371179" target="_blank" rel="noopener">懒加载单例</a></li>
-<li>手写工厂模式</li>
-<li>手写生产者消费者</li>
-<li>动态代理</li>
+<li><a href="https://www.cnblogs.com/fengchuipipiliangandy/articles/7645944.html" target="_blank" rel="noopener">手写工厂模式</a></li>
+<li><a href="https://www.cnblogs.com/chentingk/p/6497107.html" target="_blank" rel="noopener">手写生产者消费者</a></li>
+<li><a href="https://www.cnblogs.com/gdwkong/p/8035120.html" target="_blank" rel="noopener">动态代理</a></li>
+<li><a href="https://juejin.im/post/5abb6c8651882555784e051d" target="_blank" rel="noopener">对称和非对称加密</a></li>
 </ul>
 <h2 id="刷题"><a href="#刷题" class="headerlink" title="刷题"></a>刷题</h2><ul>
 <li><a href="https://doocs.gitee.io/coding-interview/#/docs/coding-interview" target="_blank" rel="noopener">剑指offer</a></li>
@@ -604,7 +638,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -675,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息中间件"><span class="nav-number">1.</span> <span class="nav-text">消息中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySql"><span class="nav-number">3.0.1.</span> <span class="nav-text">MySql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis"><span class="nav-number">3.0.2.</span> <span class="nav-text">redis</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Jvm"><span class="nav-number">4.</span> <span class="nav-text">Jvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">5.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dubbo"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">dubbo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service-mesh-是什么"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">service mesh 是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spring"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">spring</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式"><span class="nav-number">6.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">7.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷题"><span class="nav-number">8.</span> <span class="nav-text">刷题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">9.</span> <span class="nav-text">其他</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息中间件"><span class="nav-number">1.</span> <span class="nav-text">消息中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">2.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">3.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">4.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySql"><span class="nav-number">4.0.1.</span> <span class="nav-text">MySql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis"><span class="nav-number">4.0.2.</span> <span class="nav-text">redis</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Jvm"><span class="nav-number">5.</span> <span class="nav-text">Jvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">6.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dubbo"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">dubbo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#微服务架构基础之service-mesh"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">微服务架构基础之service mesh</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spring"><span class="nav-number">6.0.0.3.</span> <span class="nav-text">spring</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式"><span class="nav-number">7.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">8.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷题"><span class="nav-number">9.</span> <span class="nav-text">刷题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">10.</span> <span class="nav-text">其他</span></a></li></div>
             
 
           </div>
