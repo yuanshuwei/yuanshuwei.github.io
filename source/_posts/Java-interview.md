@@ -57,9 +57,11 @@ categories: 面试
 - [线程池](https://www.cnblogs.com/dolphin0520/p/3932921.html)  
 比如coresize 1 maxsize 5　有界队列: 
   先判断当前空闲线程数和coresize的关系，如果超过coresize扔队列，队列满，判断maxsize满没满，没满创建thread,如果满了执行拒绝策略逻辑(jdk自带４种拒绝策略，也可以重写，只要实现RejectExecutionHandler类) 
+- [线程池注意事项](https://www.jianshu.com/p/340f23001a65)
 - [有返回值的线程](https://www.cnblogs.com/yysbolg/p/9239384.html)
 - [多线程和并发基础面试题](https://www.cnblogs.com/dolphin0520/p/3932934.html)
 - [java concurrent包常用类小结](https://www.cnblogs.com/juniorMa/p/5848705.html)
+- [CountDownLatch原理和示例](https://www.cnblogs.com/skywang12345/p/3533887.html)
 
 ## 数据库
 #### MySql
