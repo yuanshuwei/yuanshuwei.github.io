@@ -73,12 +73,13 @@ categories: 面试
 > [github参考](https://github.com/doocs/advanced-java)
 
 - {% post_link redis-note %}
+- [缓存与数据库双写一致性问题](https://www.cnblogs.com/rjzheng/p/9041659.html
+)
 
 ## Jvm
 - {% post_link JVM %}
-- [jvm调优1](https://zhuanlan.zhihu.com/p/57014847)
-- [jvm调优2](https://cs.xieyonghui.com/java/java-jvm-performance_16.html)
-- [jvm调优3](https://www.jianshu.com/p/2c4b091deaa3)
+- [jvm调优](https://www.jianshu.com/p/2c4b091deaa3)
+- [cms与g1](https://www.cnblogs.com/rgever/p/9534857.html)
 ## 框架
 ##### dubbo
 - [与springcloud的区别](https://www.cnblogs.com/cyl048/p/10416705.html)
@@ -143,6 +144,7 @@ categories: 面试
 - [手写生产者消费者](https://www.cnblogs.com/chentingk/p/6497107.html)
 - [动态代理](https://www.cnblogs.com/gdwkong/p/8035120.html)
 - [对称和非对称加密](https://juejin.im/post/5abb6c8651882555784e051d)
+- leetcode138
   
 ## 刷题
 - [剑指offer](https://doocs.gitee.io/coding-interview/#/docs/coding-interview)
