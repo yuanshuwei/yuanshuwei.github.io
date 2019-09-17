@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yswape">
 <meta property="og:description" content="Java内存模型，垃圾收集器、类加载">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-05T10:34:57.900Z">
+<meta property="og:updated_time" content="2019-09-16T02:41:54.212Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM">
 <meta name="twitter:description" content="Java内存模型，垃圾收集器、类加载">
@@ -491,9 +491,12 @@
 <li>虚拟机栈</li>
 <li>方法区的类属性所引用的对象</li>
 <li>方法区中常量所引用的对象</li>
-<li>本地方法栈中所引用的对象<h3 id="如何回收"><a href="#如何回收" class="headerlink" title="如何回收"></a>如何回收</h3><h4 id="回收策略"><a href="#回收策略" class="headerlink" title="回收策略"></a>回收策略</h4>新生代通常复制算法，老年代标记-整理，标记清除。老年代对象一般较大不适合复制算法，浪费空间。标记-整理在可用对象多的情况下很适合。</li>
+<li>本地方法栈中所引用的对象</li>
 </ul>
 </li>
+</ul>
+<h3 id="如何回收"><a href="#如何回收" class="headerlink" title="如何回收"></a>如何回收</h3><h4 id="回收策略"><a href="#回收策略" class="headerlink" title="回收策略"></a>回收策略</h4><p>新生代通常复制算法，老年代标记-整理，标记清除。老年代对象一般较大不适合复制算法，浪费空间。标记-整理在可用对象多的情况下很适合。</p>
+<ul>
 <li>标记-清除算法<ul>
 <li>效率问题</li>
 <li>空间问题</li>
